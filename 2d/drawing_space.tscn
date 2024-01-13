@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c36lam14li5p5"]
+
+[ext_resource type="Script" path="res://2d/drawing_space.gd" id="1_gwgqo"]
+
+[node name="DrawingSpace" type="Node2D"]
+script = ExtResource("1_gwgqo")
+width = 16
+color = Color(0.282353, 0.533333, 0.811765, 1)
+gap = 1.0
+
+[node name="Lines" type="Node2D" parent="."]

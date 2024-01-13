@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dpu7uc2fbmia2"]
 
-[ext_resource type="Script" path="res://menus/colors_container.gd" id="1_bg7oa"]
-[ext_resource type="PackedScene" uid="uid://dw1e0xw8ekqd8" path="res://menus/colors_button.tscn" id="2_werbd"]
+[ext_resource type="Script" path="res://menus/drawing/colors_container.gd" id="1_bg7oa"]
+[ext_resource type="PackedScene" uid="uid://dw1e0xw8ekqd8" path="res://menus/drawing/color_button.tscn" id="2_werbd"]
 
 [node name="ColorsContainer" type="VBoxContainer"]
 offset_right = 64.0

@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-const BUTTON = preload("res://menus/colors_button.tscn")
+const BUTTON = preload("res://menus/drawing/color_button.tscn")
 const BUTTON_SIZE := Vector2i(48, 48)
 const BUTTON_MATERIAL := preload("res://assets/materials/color_button_theme.tres")
 

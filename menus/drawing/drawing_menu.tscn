@@ -1,13 +1,16 @@
 [gd_scene load_steps=7 format=3 uid="uid://cvewywda15qf2"]
 
-[ext_resource type="Script" path="res://DrawingSpace.gd" id="1_3cpm7"]
-[ext_resource type="Script" path="res://drawing_menu.gd" id="1_lj3hq"]
-[ext_resource type="Script" path="res://DrawingTexture.gd" id="2_d8b70"]
+[ext_resource type="Script" path="res://menus/drawing/drawing_menu.gd" id="1_lj3hq"]
+[ext_resource type="PackedScene" uid="uid://c36lam14li5p5" path="res://2d/drawing_space.tscn" id="4_mniss"]
 [ext_resource type="Texture2D" uid="uid://2g3qpd2pruh0" path="res://assets/textures/logo.png" id="5_ex55n"]
-[ext_resource type="PackedScene" uid="uid://dpu7uc2fbmia2" path="res://menus/colors_container.tscn" id="5_nufaf"]
+[ext_resource type="PackedScene" uid="uid://dpu7uc2fbmia2" path="res://menus/drawing/colors_container.tscn" id="5_nufaf"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_okrqa"]
 viewport_path = NodePath("HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport")
+
+[sub_resource type="GDScript" id="GDScript_5sp3w"]
+script/source = "extends TextureRect
+"
 
 [node name="DrawingMenu" type="Control"]
 layout_mode = 3
@@ -28,13 +31,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
+[node name="LeftRect" type="ColorRect" parent="HBoxContainer"]
 custom_minimum_size = Vector2(512, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 0, 0, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/ColorRect"]
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/LeftRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,7 +45,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorsContainer" parent="HBoxContainer/ColorRect/CenterContainer" instance=ExtResource("5_nufaf")]
+[node name="ColorsContainer" parent="HBoxContainer/LeftRect/CenterContainer" instance=ExtResource("5_nufaf")]
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
@@ -63,21 +66,14 @@ size_flags_vertical = 4
 texture = SubResource("ViewportTexture_okrqa")
 expand_mode = 1
 stretch_mode = 5
-script = ExtResource("2_d8b70")
+script = SubResource("GDScript_5sp3w")
 
 [node name="DrawingViewport" type="SubViewport" parent="HBoxContainer/VBoxContainer/DrawingTexture"]
+unique_name_in_owner = true
 size = Vector2i(1920, 1080)
 
-[node name="DrawingSpace" type="Node2D" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport"]
+[node name="DrawingSpace" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport" instance=ExtResource("4_mniss")]
 unique_name_in_owner = true
-script = ExtResource("1_3cpm7")
-width = 16
-color = Color(0.282353, 0.533333, 0.811765, 1)
-gap = 5.0
-
-[node name="Lines" type="Node2D" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport/DrawingSpace"]
-
-[node name="Camera2D" type="Camera2D" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport"]
 layer = -1
@@ -106,21 +102,23 @@ layout_mode = 2
 size_flags_vertical = 3
 color = Color(1, 0, 0, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="HBoxContainer"]
+[node name="RightRect" type="ColorRect" parent="HBoxContainer"]
 custom_minimum_size = Vector2(512, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 0, 0, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-visible = false
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/RightRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
-[connection signal="color_selected" from="HBoxContainer/ColorRect/CenterContainer/ColorsContainer" to="." method="_on_colors_container_color_selected"]
-[connection signal="gui_input" from="HBoxContainer/VBoxContainer/DrawingTexture" to="HBoxContainer/VBoxContainer/DrawingTexture" method="_on_gui_input"]
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/RightRect/CenterContainer"]
+layout_mode = 2
+columns = 2
+
+[connection signal="color_selected" from="HBoxContainer/LeftRect/CenterContainer/ColorsContainer" to="." method="_on_colors_container_color_selected"]
+[connection signal="gui_input" from="HBoxContainer/VBoxContainer/DrawingTexture" to="." method="_on_drawing_texture_gui_input"]
