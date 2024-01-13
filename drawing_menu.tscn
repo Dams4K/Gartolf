@@ -1,0 +1,126 @@
+[gd_scene load_steps=7 format=3 uid="uid://cvewywda15qf2"]
+
+[ext_resource type="Script" path="res://DrawingSpace.gd" id="1_3cpm7"]
+[ext_resource type="Script" path="res://drawing_menu.gd" id="1_lj3hq"]
+[ext_resource type="Script" path="res://DrawingTexture.gd" id="2_d8b70"]
+[ext_resource type="Texture2D" uid="uid://2g3qpd2pruh0" path="res://assets/textures/logo.png" id="5_ex55n"]
+[ext_resource type="PackedScene" uid="uid://dpu7uc2fbmia2" path="res://menus/colors_container.tscn" id="5_nufaf"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_okrqa"]
+viewport_path = NodePath("HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport")
+
+[node name="DrawingMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_lj3hq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorsContainer" parent="HBoxContainer/ColorRect/CenterContainer" instance=ExtResource("5_nufaf")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ColorRect3" type="ColorRect" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(1, 0, 0, 1)
+
+[node name="DrawingTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(960, 540)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_okrqa")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_d8b70")
+
+[node name="DrawingViewport" type="SubViewport" parent="HBoxContainer/VBoxContainer/DrawingTexture"]
+size = Vector2i(1920, 1080)
+
+[node name="DrawingSpace" type="Node2D" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport"]
+unique_name_in_owner = true
+script = ExtResource("1_3cpm7")
+width = 16
+color = Color(0.282353, 0.533333, 0.811765, 1)
+gap = 5.0
+
+[node name="Lines" type="Node2D" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport/DrawingSpace"]
+
+[node name="Camera2D" type="Camera2D" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport"]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport/CanvasLayer"]
+modulate = Color(1, 1, 1, 0.34902)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_ex55n")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ColorRect4" type="ColorRect" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(1, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="color_selected" from="HBoxContainer/ColorRect/CenterContainer/ColorsContainer" to="." method="_on_colors_container_color_selected"]
+[connection signal="gui_input" from="HBoxContainer/VBoxContainer/DrawingTexture" to="HBoxContainer/VBoxContainer/DrawingTexture" method="_on_gui_input"]
