@@ -1,11 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvewywda15qf2"]
+[gd_scene load_steps=12 format=3 uid="uid://cvewywda15qf2"]
 
 [ext_resource type="Script" path="res://menus/drawing/drawing_menu.gd" id="1_lj3hq"]
+[ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_tld3x"]
+[ext_resource type="Texture2D" uid="uid://bqguccncfn3xv" path="res://assets/textures/background.png" id="3_vcavn"]
 [ext_resource type="PackedScene" uid="uid://c36lam14li5p5" path="res://2d/drawing_space.tscn" id="4_mniss"]
 [ext_resource type="Texture2D" uid="uid://2g3qpd2pruh0" path="res://assets/textures/logo.png" id="5_ex55n"]
 [ext_resource type="PackedScene" uid="uid://dpu7uc2fbmia2" path="res://menus/drawing/colors_container.tscn" id="5_nufaf"]
+[ext_resource type="PackedScene" uid="uid://o3ga0gmgcd6e" path="res://menus/drawing/tools_container.tscn" id="6_vyiqk"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_okrqa"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_otm71"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_kf7il"]
+Panel/styles/panel = SubResource("StyleBoxFlat_otm71")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ibb00"]
 viewport_path = NodePath("HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport")
 
 [sub_resource type="GDScript" id="GDScript_5sp3w"]
@@ -20,7 +38,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("1_tld3x")
 script = ExtResource("1_lj3hq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_vcavn")
+stretch_mode = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -29,41 +58,40 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 15
 
-[node name="LeftRect" type="ColorRect" parent="HBoxContainer"]
-custom_minimum_size = Vector2(512, 0)
+[node name="LeftContainer" type="HBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-color = Color(1, 0, 0, 1)
+alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/LeftRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorsContainer" parent="HBoxContainer/LeftRect/CenterContainer" instance=ExtResource("5_nufaf")]
+[node name="ColorsContainer" parent="HBoxContainer/LeftContainer" instance=ExtResource("5_nufaf")]
 layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme = SubResource("Theme_kf7il")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 15
 
-[node name="ColorRect3" type="ColorRect" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 256)
+[node name="TopContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-color = Color(1, 0, 0, 1)
+size_flags_vertical = 10
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/TopContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "Un canard avec 3 jambes"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="DrawingTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(960, 540)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = SubResource("ViewportTexture_okrqa")
+texture = SubResource("ViewportTexture_ibb00")
 expand_mode = 1
 stretch_mode = 5
 script = SubResource("GDScript_5sp3w")
@@ -96,29 +124,16 @@ texture = ExtResource("5_ex55n")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ColorRect4" type="ColorRect" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 256)
+[node name="BottomContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-color = Color(1, 0, 0, 1)
+size_flags_vertical = 2
 
-[node name="RightRect" type="ColorRect" parent="HBoxContainer"]
-custom_minimum_size = Vector2(512, 0)
+[node name="RightContainer" type="HBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-color = Color(1, 0, 0, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/RightRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer/RightRect/CenterContainer"]
+[node name="ToolsContainer" parent="HBoxContainer/RightContainer" instance=ExtResource("6_vyiqk")]
 layout_mode = 2
-columns = 2
 
-[connection signal="color_selected" from="HBoxContainer/LeftRect/CenterContainer/ColorsContainer" to="." method="_on_colors_container_color_selected"]
+[connection signal="color_selected" from="HBoxContainer/LeftContainer/ColorsContainer" to="." method="_on_colors_container_color_selected"]
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/DrawingTexture" to="." method="_on_drawing_texture_gui_input"]

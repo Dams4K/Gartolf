@@ -9,8 +9,14 @@ signal color_selected(color)
 @export var colors: Array[Color] = []
 
 @onready var grid_container: GridContainer = $GridContainer
+@onready var color_picker_window: Window = %ColorPickerWindow
+@onready var color_picker: ColorPicker = %ColorPicker
+@onready var custom_color_button: TextureButton = %CustomColorButton
+
 
 func _ready() -> void:
+	color_picker_window.hide()
+	
 	for color in colors:
 		var button = BUTTON.instantiate()
 		button.color = color
@@ -21,3 +27,18 @@ func _ready() -> void:
 
 func _on_btn_pressed(btn):
 	color_selected.emit(btn.color)
+
+
+func _on_custom_color_button_pressed() -> void:
+	color_picker.color = custom_color_button.color
+	color_picker_window.show()
+
+
+func _on_color_picker_window_close_requested() -> void:
+	color_picker_window.hide()
+
+
+func _on_select_color_button_pressed() -> void:
+	color_selected.emit(color_picker.color)
+	custom_color_button.color = color_picker.color
+	color_picker_window.hide()

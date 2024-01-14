@@ -41,31 +41,27 @@ func _ready():
 
 ## Create server
 func create_server(port: int = DEFAULT_PORT, max_players: int = MAX_PLAYER) -> int:
+	peer = ENetMultiplayerPeer.new()
+	var err = peer.create_server(port, MAX_PLAYER) #TODO: catch errors
+	if err != OK:
+		printerr("Can't create server with port %s" % port)
+		return err
+	
 	Discovery.as_server({
 		"max_players": max_players,
 		"port": port
 	})
 	
-	peer = ENetMultiplayerPeer.new()
-	var err = peer.create_server(port, MAX_PLAYER) #TODO: catch errors
 	multiplayer.multiplayer_peer = peer
 	
 	players[1] = player_info
 	player_connected.emit(1, player_info)
-	
-#	server_discovery = UDPServer.new()
-#	server_discovery.listen(SCANNING_PORT, "0.0.0.0")
-#	is_server = true
 	
 	return err
 
 
 ## Join server (Create client)
 func join_server(addr: String, port: int = DEFAULT_PORT) -> int:
-#	is_scanning = false
-#	client_discovery.close()
-	Discovery.stop_client()
-	
 	peer = ENetMultiplayerPeer.new()
 	var err = peer.create_client(addr, port) #TODO: catch errors
 	multiplayer.multiplayer_peer = peer

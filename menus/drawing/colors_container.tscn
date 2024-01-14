@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpu7uc2fbmia2"]
+[gd_scene load_steps=5 format=3 uid="uid://dpu7uc2fbmia2"]
 
 [ext_resource type="Script" path="res://menus/drawing/colors_container.gd" id="1_bg7oa"]
 [ext_resource type="PackedScene" uid="uid://dw1e0xw8ekqd8" path="res://menus/drawing/color_button.tscn" id="2_werbd"]
+[ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="3_aajnb"]
+
+[sub_resource type="Theme" id="Theme_68h8a"]
 
 [node name="ColorsContainer" type="VBoxContainer"]
 offset_right = 64.0
 offset_bottom = 68.0
+theme = SubResource("Theme_68h8a")
 script = ExtResource("1_bg7oa")
 colors = Array[Color]([Color(0, 0, 0, 1), Color(0.4, 0.4, 0.4, 1), Color(0.219608, 0.321569, 0.768627, 1), Color(1, 1, 1, 1), Color(0.662745, 0.662745, 0.662745, 1), Color(0.458824, 0.776471, 0.976471, 1), Color(0.235294, 0.443137, 0.192157, 1), Color(0.517647, 0.12549, 0.0941176, 1), Color(0.521569, 0.278431, 0.14902, 1), Color(0.364706, 0.670588, 0.309804, 1), Color(0.870588, 0.211765, 0.180392, 1), Color(0.894118, 0.494118, 0.262745, 1), Color(0.627451, 0.447059, 0.203922, 1), Color(0.517647, 0.129412, 0.305882, 1), Color(0.705882, 0.380392, 0.356863, 1), Color(0.937255, 0.756863, 0.309804, 1), Color(0.87451, 0.219608, 0.54902, 1), Color(0.92549, 0.694118, 0.662745, 1)])
 
@@ -13,7 +17,38 @@ colors = Array[Color]([Color(0, 0, 0, 1), Color(0.4, 0.4, 0.4, 1), Color(0.21960
 layout_mode = 2
 columns = 3
 
-[node name="ColorsButton" parent="." instance=ExtResource("2_werbd")]
+[node name="CustomColorButton" parent="." instance=ExtResource("2_werbd")]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 color = Color(0.521569, 0.521569, 0.521569, 1)
+
+[node name="ColorPickerWindow" type="Window" parent="."]
+unique_name_in_owner = true
+title = "ColorPicker"
+initial_position = 4
+size = Vector2i(230, 545)
+visible = false
+content_scale_mode = 1
+content_scale_factor = 0.5
+
+[node name="Control" type="VBoxContainer" parent="ColorPickerWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_aajnb")
+
+[node name="ColorPicker" type="ColorPicker" parent="ColorPickerWindow/Control"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SelectColorButton" type="Button" parent="ColorPickerWindow/Control"]
+layout_mode = 2
+text = "Select"
+
+[connection signal="pressed" from="CustomColorButton" to="." method="_on_custom_color_button_pressed"]
+[connection signal="close_requested" from="ColorPickerWindow" to="." method="_on_color_picker_window_close_requested"]
+[connection signal="pressed" from="ColorPickerWindow/Control/SelectColorButton" to="." method="_on_select_color_button_pressed"]
