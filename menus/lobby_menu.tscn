@@ -1,26 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvfup3t3ulxya"]
+[gd_scene load_steps=4 format=3 uid="uid://bvfup3t3ulxya"]
 
 [ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_as1kk"]
+[ext_resource type="Texture2D" uid="uid://indkkq3se0kr" path="res://assets/textures/background2.png" id="2_8a0p6"]
 [ext_resource type="Script" path="res://menus/lobby_menu.gd" id="2_jxo1m"]
 
-[node name="LobbyMenu" type="CenterContainer"]
+[node name="LobbyMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_jxo1m")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8a0p6")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_as1kk")
-script = ExtResource("2_jxo1m")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
 custom_minimum_size = Vector2(0, 720)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="HBoxContainer"]
+[node name="Panel" type="Panel" parent="CenterContainer/HBoxContainer"]
 custom_minimum_size = Vector2(196, 0)
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/HBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,12 +48,12 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/Panel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TitleLabel" type="Label" parent="HBoxContainer/Panel/ScrollContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="CenterContainer/HBoxContainer/Panel/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelTitle"
 text = "Players"
@@ -42,16 +61,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="PlayersContainer" type="VBoxContainer" parent="HBoxContainer/Panel/ScrollContainer/VBoxContainer"]
+[node name="PlayersContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/Panel/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Panel2" type="Panel" parent="HBoxContainer"]
+[node name="Panel2" type="Panel" parent="CenterContainer/HBoxContainer"]
 custom_minimum_size = Vector2(512, 0)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/Panel2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,7 +78,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ReadyLabel" type="Label" parent="HBoxContainer/Panel2/VBoxContainer"]
+[node name="ReadyLabel" type="Label" parent="CenterContainer/HBoxContainer/Panel2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"LabelTitle"
@@ -67,16 +86,16 @@ text = "Ready : ?/?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ReadyButton" type="Button" parent="HBoxContainer/Panel2/VBoxContainer"]
+[node name="ReadyButton" type="Button" parent="CenterContainer/HBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 text = "Ready?"
 
-[node name="ForceStart" type="Button" parent="HBoxContainer/Panel2/VBoxContainer"]
+[node name="ForceStart" type="Button" parent="CenterContainer/HBoxContainer/Panel2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 text = "Force start"
 
-[connection signal="pressed" from="HBoxContainer/Panel2/VBoxContainer/ReadyButton" to="." method="_on_ready_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/Panel2/VBoxContainer/ForceStart" to="." method="_on_force_start_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/Panel2/VBoxContainer/ReadyButton" to="." method="_on_ready_button_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/Panel2/VBoxContainer/ForceStart" to="." method="_on_force_start_pressed"]

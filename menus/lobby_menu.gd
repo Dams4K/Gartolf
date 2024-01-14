@@ -1,4 +1,4 @@
-extends CenterContainer
+extends Control
 
 @onready var players_container: VBoxContainer = %PlayersContainer
 @onready var ready_label: Label = %ReadyLabel

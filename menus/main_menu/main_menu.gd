@@ -1,4 +1,4 @@
-extends CenterContainer
+extends Control
 
 @onready var player_name_line_edit: LineEdit = %PlayerNameLineEdit
 @onready var port_line_edit: LineEdit = %PortLineEdit

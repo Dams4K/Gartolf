@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://menus/drawing/drawing_menu.gd" id="1_lj3hq"]
 [ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_tld3x"]
-[ext_resource type="Texture2D" uid="uid://bqguccncfn3xv" path="res://assets/textures/background.png" id="3_vcavn"]
+[ext_resource type="Texture2D" uid="uid://indkkq3se0kr" path="res://assets/textures/background2.png" id="3_732oq"]
 [ext_resource type="PackedScene" uid="uid://c36lam14li5p5" path="res://2d/drawing_space.tscn" id="4_mniss"]
 [ext_resource type="Texture2D" uid="uid://2g3qpd2pruh0" path="res://assets/textures/logo.png" id="5_ex55n"]
 [ext_resource type="PackedScene" uid="uid://dpu7uc2fbmia2" path="res://menus/drawing/colors_container.tscn" id="5_nufaf"]
@@ -23,7 +23,7 @@ corner_detail = 5
 [sub_resource type="Theme" id="Theme_kf7il"]
 Panel/styles/panel = SubResource("StyleBoxFlat_otm71")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ibb00"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_1evr0"]
 viewport_path = NodePath("HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport")
 
 [sub_resource type="GDScript" id="GDScript_5sp3w"]
@@ -48,7 +48,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_vcavn")
+texture = ExtResource("3_732oq")
 stretch_mode = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -87,11 +87,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DrawingTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(960, 540)
+custom_minimum_size = Vector2(1152, 648)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = SubResource("ViewportTexture_ibb00")
+texture = SubResource("ViewportTexture_1evr0")
 expand_mode = 1
 stretch_mode = 5
 script = SubResource("GDScript_5sp3w")
