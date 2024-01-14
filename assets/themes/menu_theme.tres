@@ -1,0 +1,14 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://ccjhg66qfqvmh"]
+
+[ext_resource type="FontFile" uid="uid://xcjsdqnckk2i" path="res://assets/fonts/Roboto/Roboto-Bold.ttf" id="1_nievp"]
+[ext_resource type="FontFile" uid="uid://bk0vwpk3oru6" path="res://assets/fonts/Roboto/Roboto-Regular.ttf" id="2_dtkto"]
+[ext_resource type="StyleBox" uid="uid://b7ru2p2ibp6l5" path="res://assets/materials/themes/panel_style_box.tres" id="2_rfjk8"]
+
+[resource]
+default_font = ExtResource("2_dtkto")
+default_font_size = 30
+LabelTitle/base_type = &"Label"
+LabelTitle/font_sizes/font_size = 36
+LabelTitle/fonts/font = ExtResource("1_nievp")
+LabelTitle/styles/normal = ExtResource("2_rfjk8")
+Panel/styles/panel = ExtResource("2_rfjk8")

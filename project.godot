@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="GarticPhoneClone"
-run/main_scene="res://menus/drawing/drawing_menu.tscn"
+run/main_scene="res://menus/main_menu/main_menu.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 NetworkManager="*res://singletons/network_manager.gd"
+Discovery="*res://singletons/discovery.gd"
 
 [display]
 

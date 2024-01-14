@@ -1,0 +1,102 @@
+[gd_scene load_steps=3 format=3 uid="uid://c57ak4ejgf8sh"]
+
+[ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_m6kbb"]
+[ext_resource type="Script" path="res://menus/main_menu/main_menu.gd" id="1_maur7"]
+
+[node name="MainMenu" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_m6kbb")
+script = ExtResource("1_maur7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 512)
+layout_mode = 2
+
+[node name="HostPanel" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/HostPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/HostPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="NamesVContainer" type="VBoxContainer" parent="HBoxContainer/HostPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerNameLabel" type="Label" parent="HBoxContainer/HostPanel/VBoxContainer/HBoxContainer/NamesVContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Name :"
+
+[node name="Label" type="Label" parent="HBoxContainer/HostPanel/VBoxContainer/HBoxContainer/NamesVContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Port :"
+
+[node name="LineEditsVContainer" type="VBoxContainer" parent="HBoxContainer/HostPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerNameLineEdit" type="LineEdit" parent="HBoxContainer/HostPanel/VBoxContainer/HBoxContainer/LineEditsVContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PortLineEdit" type="LineEdit" parent="HBoxContainer/HostPanel/VBoxContainer/HBoxContainer/LineEditsVContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "4242"
+virtual_keyboard_type = 2
+
+[node name="HostButton" type="Button" parent="HBoxContainer/HostPanel/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="HBoxContainer/HostPanel/VBoxContainer"]
+layout_mode = 2
+text = "Join?"
+
+[node name="ScanButton" type="Button" parent="HBoxContainer/HostPanel/VBoxContainer"]
+layout_mode = 2
+text = "Scan"
+
+[node name="JoinPanel" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/JoinPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="ServersContainer" type="VBoxContainer" parent="HBoxContainer/JoinPanel/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="text_changed" from="HBoxContainer/HostPanel/VBoxContainer/HBoxContainer/LineEditsVContainer/PlayerNameLineEdit" to="." method="_on_player_name_line_edit_text_changed"]
+[connection signal="pressed" from="HBoxContainer/HostPanel/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/HostPanel/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/HostPanel/VBoxContainer/ScanButton" to="." method="_on_scan_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
