@@ -1,12 +1,16 @@
 extends GridContainer
 
-enum TOOLS {
-	BRUSH,
-	ERASER
-}
+signal tool_changed(tool_name)
 
-@export var current_tool: TOOLS = TOOLS.BRUSH
+@export var current_tool: DrawingSpace.TOOLS = DrawingSpace.TOOLS.BRUSH
 
+func _ready() -> void:
+	for key in DrawingSpace.TOOLS.keys():
+		var btn = Button.new()
+		btn.name = key
+		btn.custom_minimum_size = Vector2.ONE * 64
+		btn.pressed.connect(_on_change_tool_btn_pressed.bind(key))
+		add_child(btn)
 
-func _on_eraser_button_pressed() -> void:
-	pass # Replace with function body.
+func _on_change_tool_btn_pressed(tool_name: String):
+	tool_changed.emit(tool_name)

@@ -9,7 +9,3 @@ color = Color(0.282353, 0.533333, 0.811765, 1)
 gap = 1.0
 
 [node name="Lines" type="Node2D" parent="."]
-
-[node name="Line2D" type="Line2D" parent="Lines"]
-position = Vector2(-50, -50)
-points = PackedVector2Array(0, 0, 100, 0, 100, 100, 0, 100)

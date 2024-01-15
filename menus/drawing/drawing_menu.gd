@@ -1,14 +1,13 @@
 extends Control
 # /!\ mouse_filter need to be set to "ignore"
 
-
 var SCREEN_SIZE = Vector2(
 	ProjectSettings.get("display/window/size/viewport_width"),
 	ProjectSettings.get("display/window/size/viewport_height")
 )
 
 @onready var drawing_viewport: SubViewport = %DrawingViewport
-@onready var drawing_space: Node2D = %DrawingSpace
+@onready var drawing_space: DrawingSpace = %DrawingSpace
 @onready var drawing_texture: TextureRect = $HBoxContainer/VBoxContainer/DrawingTexture
 
 var current_color: Color = Color.BLACK
@@ -37,3 +36,7 @@ func _on_drawing_texture_gui_input(event: InputEvent) -> void:
 #	event.position -= size/2 # If i have a camera
 	event.position *= SCREEN_SIZE/drawing_texture.size
 	drawing_viewport.push_input(event)
+
+
+func _on_tools_container_tool_changed(tool_name) -> void:
+	drawing_space.current_tool = DrawingSpace.TOOLS.get(tool_name)

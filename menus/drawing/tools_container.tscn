@@ -7,29 +7,3 @@ size_flags_horizontal = 2
 size_flags_vertical = 4
 columns = 2
 script = ExtResource("1_l0pu5")
-
-[node name="BrushButton" type="Button" parent="."]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="EraserButton" type="Button" parent="."]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="Button3" type="Button" parent="."]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="Button4" type="Button" parent="."]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="Button5" type="Button" parent="."]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="Button6" type="Button" parent="."]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[connection signal="pressed" from="EraserButton" to="." method="_on_eraser_button_pressed"]
