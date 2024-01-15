@@ -102,11 +102,17 @@ size = Vector2i(1920, 1080)
 
 [node name="DrawingSpace" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport" instance=ExtResource("4_mniss")]
 unique_name_in_owner = true
+current_tool = 3
+
+[node name="Line2D" type="Line2D" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport/DrawingSpace"]
+
+[node name="Polygon2D" type="Polygon2D" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport/DrawingSpace"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport"]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport/CanvasLayer"]
+[node name="BackgroundColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport/CanvasLayer"]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
