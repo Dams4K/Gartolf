@@ -31,6 +31,10 @@ func _on_player_name_line_edit_text_changed(new_text: String) -> void:
 	NetworkManager.set_player_name(new_text)
 
 
+func _on_port_line_edit_text_changed(new_text: String) -> void:
+	pass # TODO
+
+
 func _on_scan_button_pressed() -> void:
 	Discovery.scan()
 
@@ -54,3 +58,4 @@ func join_server(server_id: String) -> void:
 	var err = NetworkManager.join_server(server_ip, server_port)
 	if err == OK: # No error
 		get_tree().change_scene_to_file("res://menus/lobby_menu.tscn")
+
