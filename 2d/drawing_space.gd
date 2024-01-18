@@ -171,6 +171,15 @@ func handle_ellipse(event: InputEvent, color: Color, width: float, filled: bool)
 	
 	elif event is InputEventMouseMotion and current_ellipse:
 		current_ellipse.ellipse_scale = (event.position - center_object_pos)/2
+		
+		if Input.is_key_pressed(KEY_SHIFT):
+			current_ellipse.ellipse_scale = Vector2.ONE * current_ellipse.ellipse_scale[current_ellipse.ellipse_scale.max_axis_index()]
+		
+		if Input.is_key_pressed(KEY_CTRL):
+			current_ellipse.anchor = current_ellipse.ANCHOR.CENTER
+			current_ellipse.ellipse_scale *= 2
+		else:
+			current_ellipse.anchor = current_ellipse.ANCHOR.TOP_LEFT
 
 func handle_brush(event: InputEventMouse, color: Color, width: int, gap: int = 5):
 	if event is InputEventMouseButton:
