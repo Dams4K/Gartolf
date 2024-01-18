@@ -19,7 +19,7 @@ enum TOOLS {
 
 var current_line: Line2D
 var current_polygon: Polygon2D
-var current_circle: Circle2D
+var current_ellipse: Ellipse2D
 
 var history_backward_index = 0
 
@@ -34,7 +34,7 @@ func _input(event: InputEvent) -> void:
 		# current line anymore
 		current_line = null
 		current_polygon = null
-		current_circle = null
+		current_ellipse = null
 	
 	match current_tool:
 		TOOLS.BRUSH:
@@ -48,9 +48,9 @@ func _input(event: InputEvent) -> void:
 		TOOLS.RECTANGLE_FILLED:
 			handle_rectangle_filled(event, current_color, width)
 		TOOLS.CIRCLE_EMPTY:
-			handle_circle(event, current_color, width, false)
+			handle_ellipse(event, current_color, width, false)
 		TOOLS.CIRCLE_FILLED:
-			handle_circle(event, current_color, width, true)
+			handle_ellipse(event, current_color, width, true)
 
 
 func _process(delta: float) -> void:
@@ -157,20 +157,20 @@ func handle_rectangle_filled(event: InputEvent, color: Color, width: int):
 		for i in range(len(polygon)):
 			current_polygon.polygon = polygon
 
-func handle_circle(event: InputEvent, color: Color, width: float, filled: bool):
+func handle_ellipse(event: InputEvent, color: Color, width: float, filled: bool):
 	if event is InputEventMouseButton:
 		if event.pressed:
 			center_object_pos = event.position
-			current_circle = Circle2D.new()
-			current_circle.position = center_object_pos
-			current_circle.default_color = color
-			current_circle.width = width
-			current_circle.filled = filled
+			current_ellipse = Ellipse2D.new()
+			current_ellipse.position = center_object_pos
+			current_ellipse.default_color = color
+			current_ellipse.width = width
+			current_ellipse.filled = filled
 			
-			lines.add_child(current_circle)
+			lines.add_child(current_ellipse)
 	
-	elif event is InputEventMouseMotion and current_circle:
-		current_circle.radius = center_object_pos.distance_to(event.position)
+	elif event is InputEventMouseMotion and current_ellipse:
+		current_ellipse.ellipse_scale = (event.position - center_object_pos)/2
 
 func handle_brush(event: InputEventMouse, color: Color, width: int, gap: int = 5):
 	if event is InputEventMouseButton:
