@@ -13,6 +13,7 @@ var players: Dictionary = {}
 func _ready() -> void:
 	NetworkManager.player_disconnected.connect(_on_player_disconnect)
 	NetworkManager.player_connected.connect(_on_player_connect)
+	NetworkManager.connected_to_server.connect(_on_connected_ok)
 
 @rpc("any_peer", "call_local", "reliable")
 func update_sentence(sentence: String, round: int):
@@ -20,7 +21,7 @@ func update_sentence(sentence: String, round: int):
 	while len(sentences) <= round:
 		sentences.append({})
 	
-	sentences[0][id] = sentence
+	sentences[round][id] = sentence
 
 
 func start_game():
@@ -28,19 +29,22 @@ func start_game():
 	allow_player_connection = false
 
 
-@rpc("any_peer", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func register_player(new_player_info):
-	var new_player_id = multiplayer.get_remote_sender_id()
-	players[new_player_id] = new_player_info
-	player_connected.emit(new_player_id, new_player_info)
+	var peer_id = multiplayer.get_remote_sender_id()
+	self._register_player(peer_id, new_player_info)
 
+func _register_player(peer_id, new_player_info):
+	players[peer_id] = new_player_info
+	player_connected.emit(peer_id, new_player_info)
+
+func _on_connected_ok():
+	var peer_id = multiplayer.get_unique_id()
+	# Register the player in his session
+	self._register_player(peer_id, NetworkManager.player_info)
 
 func _on_player_disconnect(id: int):
 	players.erase(id)
 
 func _on_player_connect(peer_id, player_info):
-#	if not multiplayer.is_server(): return
-	
-	if allow_player_connection or multiplayer.is_server(): # Of course we want the server
-		players[peer_id] = player_info
-		print("connect:", peer_id)
+	register_player.rpc_id(peer_id, player_info)

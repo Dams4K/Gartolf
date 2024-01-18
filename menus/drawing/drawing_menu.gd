@@ -14,14 +14,14 @@ var current_color: Color = Color.BLACK
 var current_tool
 
 func _ready() -> void:
-	drawing_space.color = current_color
+	drawing_space.current_color = current_color
 	drawing_viewport.size = SCREEN_SIZE
 	
 	print(GameManager.sentences)
 
 func _on_colors_container_color_selected(color) -> void:
 	current_color = color
-	drawing_space.color = color
+	drawing_space.current_color = color
 
 
 func _process(delta: float) -> void:

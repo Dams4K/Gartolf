@@ -1,6 +1,8 @@
 ## That's funny
 extends Node
 
+## I will use NetworkManager.connected_to_server instead multiplayer.connected_to_server, allowing me to add logic between the network and the game
+signal connected_to_server
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal server_disconnected
@@ -17,11 +19,12 @@ const DEFAULT_PLAYER_NAME: String = "DefaultName"
 var peer: ENetMultiplayerPeer
 
 ## Current player information
+## TODO: move this somewhere else
 var player_info: Dictionary = {
 	"name": DEFAULT_PLAYER_NAME
 }
 
-var allow_connection: bool = false
+var allow_connection: bool = true
 
 # TODO: may replace player_info dict by a Resource?
 func set_player_name(value: String) -> void:
@@ -53,7 +56,7 @@ func create_server(port: int = DEFAULT_PORT, max_players: int = MAX_PLAYER) -> i
 	
 	multiplayer.multiplayer_peer = peer
 	
-	player_connected.emit(1, player_info)
+	connected_to_server.emit()
 	
 	return err
 
@@ -67,20 +70,20 @@ func join_server(addr: String, port: int = DEFAULT_PORT) -> int:
 	return err
 
 # Called for everyone already connected + the one who just connect
-func _on_player_connected(id):
+func _on_player_connected(peer_id):
 	if multiplayer.is_server() and not allow_connection:
-		peer.disconnect_peer(id)
+		peer.disconnect_peer(peer_id)
+	else:
+		player_connected.emit(peer_id, player_info)
 
 
 func _on_player_disconnected(id):
 	player_disconnected.emit(id)
-#	open_menu()
 
 
-# Called for the one who just connect
+## Called for the one who just connect
 func _on_connected_ok():
-	var peer_id = multiplayer.get_unique_id()
-	player_connected.emit(peer_id, player_info)
+	connected_to_server.emit()
 
 
 func _on_connected_fail():

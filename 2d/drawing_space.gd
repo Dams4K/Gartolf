@@ -11,7 +11,7 @@ enum TOOLS {
 
 @export var current_tool: TOOLS = TOOLS.BRUSH
 @export_range(1, 25, 1, "or_greater") var width = 4
-@export var color := Color.BLACK
+@export var current_color := Color.BLACK
 
 @export var gap := 3.0
 
@@ -34,15 +34,15 @@ func _input(event: InputEvent) -> void:
 	
 	match current_tool:
 		TOOLS.BRUSH:
-			handle_brush(event, color, width)
+			handle_brush(event, current_color, width)
 		TOOLS.ERASER:
 			handle_brush(event, Color.WHITE, width)
 		TOOLS.LINE:
-			handle_line(event, color, width)
+			handle_line(event, current_color, width)
 		TOOLS.RECTANGLE_EMPTY:
-			handle_rectangle_empty(event, color, width)
+			handle_rectangle_empty(event, current_color, width)
 		TOOLS.RECTANGLE_FILLED:
-			handle_rectangle_filled(event, color, width)
+			handle_rectangle_filled(event, current_color, width)
 
 
 func _process(delta: float) -> void:
