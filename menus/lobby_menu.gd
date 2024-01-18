@@ -9,10 +9,10 @@ var players_ready: Array[int] = []
 func _ready() -> void:
 	force_start.visible = multiplayer.is_server()
 	# Load existing players
-	for peer_id in NetworkManager.players:
-		_on_player_join(peer_id, NetworkManager.players[peer_id])
+	for peer_id in GameManager.players:
+		_on_player_join(peer_id, GameManager.players[peer_id])
 	
-	NetworkManager.player_connected.connect(_on_player_join)
+	GameManager.player_connected.connect(_on_player_join)
 
 func _on_player_join(peer_id: int, player_info: Dictionary):
 	var label = Label.new()
@@ -45,15 +45,16 @@ func toggle_ready():
 	
 	update_ready_label()
 	
-	if multiplayer.is_server() and len(players_ready) == len(NetworkManager.players):
+	if multiplayer.is_server() and len(players_ready) == len(GameManager.players):
 		start_game.rpc()
 
 @rpc("call_local", "reliable")
 func start_game():
-	get_tree().change_scene_to_file("res://menus/drawing/drawing_menu.tscn")
+	GameManager.start_game()
+	get_tree().change_scene_to_file("res://menus/sentence_menu.tscn")
 
 func update_ready_label():
-	ready_label.text = "Ready : %s/%s" % [len(players_ready), len(NetworkManager.players)]
+	ready_label.text = "Ready : %s/%s" % [len(players_ready), len(GameManager.players)]
 
 
 func _on_force_start_pressed() -> void:

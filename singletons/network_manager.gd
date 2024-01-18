@@ -16,13 +16,12 @@ const DEFAULT_PLAYER_NAME: String = "DefaultName"
 ## Multiplayer peer
 var peer: ENetMultiplayerPeer
 
-## All players in the server
-var players: Dictionary = {}
-
 ## Current player information
 var player_info: Dictionary = {
 	"name": DEFAULT_PLAYER_NAME
 }
+
+var allow_connection: bool = false
 
 # TODO: may replace player_info dict by a Resource?
 func set_player_name(value: String) -> void:
@@ -54,7 +53,6 @@ func create_server(port: int = DEFAULT_PORT, max_players: int = MAX_PLAYER) -> i
 	
 	multiplayer.multiplayer_peer = peer
 	
-	players[1] = player_info
 	player_connected.emit(1, player_info)
 	
 	return err
@@ -68,33 +66,33 @@ func join_server(addr: String, port: int = DEFAULT_PORT) -> int:
 	
 	return err
 
+# Called for everyone already connected + the one who just connect
 func _on_player_connected(id):
-	_register_player.rpc_id(id, player_info)
-
-
-@rpc("any_peer", "reliable")
-func _register_player(new_player_info):
-	var new_player_id = multiplayer.get_remote_sender_id()
-	players[new_player_id] = new_player_info
-	player_connected.emit(new_player_id, new_player_info)
+	if multiplayer.is_server() and not allow_connection:
+		peer.disconnect_peer(id)
 
 
 func _on_player_disconnected(id):
-	players.erase(id)
 	player_disconnected.emit(id)
+#	open_menu()
 
 
+# Called for the one who just connect
 func _on_connected_ok():
 	var peer_id = multiplayer.get_unique_id()
-	players[peer_id] = player_info
 	player_connected.emit(peer_id, player_info)
 
 
 func _on_connected_fail():
 	multiplayer.multiplayer_peer = null
+	print("connection failed")
+	open_menu()
 
 
 func _on_server_disconnected():
 	multiplayer.multiplayer_peer = null
-	players.clear()
 	server_disconnected.emit()
+	open_menu()
+
+func open_menu():
+	get_tree().change_scene_to_file("res://menus/main_menu/main_menu.tscn")

@@ -9,6 +9,8 @@ func _ready() -> void:
 	port_line_edit.placeholder_text = str(NetworkManager.DEFAULT_PORT)
 	Discovery.server_scanned.connect(_on_server_scanned)
 	Discovery.scan()
+	
+	multiplayer.connected_to_server.connect(_on_connected_ok)
 
 
 func _on_host_button_pressed() -> void:
@@ -24,7 +26,7 @@ func _on_host_button_pressed() -> void:
 func _on_join_button_pressed() -> void:
 	var err = NetworkManager.join_server("127.0.0.1")
 	if err == OK: # No error
-		get_tree().change_scene_to_file("res://menus/lobby_menu.tscn")
+		pass
 
 
 func _on_player_name_line_edit_text_changed(new_text: String) -> void:
@@ -34,6 +36,8 @@ func _on_player_name_line_edit_text_changed(new_text: String) -> void:
 func _on_port_line_edit_text_changed(new_text: String) -> void:
 	pass # TODO
 
+func _on_connected_ok():
+	get_tree().change_scene_to_file("res://menus/lobby_menu.tscn")
 
 func _on_scan_button_pressed() -> void:
 	Discovery.scan()
@@ -56,6 +60,4 @@ func join_server(server_id: String) -> void:
 	var server_ip = server_data["ip"]
 	var server_port = server_data["port"]
 	var err = NetworkManager.join_server(server_ip, server_port)
-	if err == OK: # No error
-		get_tree().change_scene_to_file("res://menus/lobby_menu.tscn")
 

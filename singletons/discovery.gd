@@ -81,7 +81,7 @@ func handle_server():
 	
 	var peer_discovery: PacketPeerUDP = server_discovery.take_connection()
 	var data = peer_discovery.get_packet().decode_var(0)
-	print(data)
+	
 	if data == null:
 		return
 	

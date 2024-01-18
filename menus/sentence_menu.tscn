@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://st0jr6njwmvw"]
+
+[ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_lagxa"]
+[ext_resource type="Texture2D" uid="uid://indkkq3se0kr" path="res://assets/textures/background2.png" id="1_x48fk"]
+[ext_resource type="Script" path="res://menus/sentence_menu.gd" id="2_pam4j"]
+
+[sub_resource type="GDScript" id="GDScript_01vid"]
+script/source = "extends TextureRect
+"
+
+[node name="SentenceMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lagxa")
+script = ExtResource("2_pam4j")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_x48fk")
+stretch_mode = 6
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+
+[node name="DrawingTexture" type="TextureRect" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+script = SubResource("GDScript_01vid")
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Écris une phrase"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SentenceLineEdit" type="LineEdit" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FinishButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "Terminé"
+
+[connection signal="toggled" from="CenterContainer/VBoxContainer/HBoxContainer/FinishButton" to="." method="_on_finish_button_toggled"]

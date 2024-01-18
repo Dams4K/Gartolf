@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 NetworkManager="*res://singletons/network_manager.gd"
 Discovery="*res://singletons/discovery.gd"
+GameManager="*res://singletons/game_manager.gd"
 
 [display]
 

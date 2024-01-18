@@ -157,6 +157,7 @@ func handle_brush(event: InputEventMouse, color: Color, width: int, gap: int = 5
 			current_line = create_line(color, width)
 			current_line.add_point(event.position)
 			lines.add_child(current_line)
+			current_line.add_point(event.position + Vector2.ONE/100)
 	elif event is InputEventMouseMotion and current_line:
 		if current_line.get_point_position(current_line.get_point_count()-1).distance_to(event.position) > gap:
 			current_line.add_point(event.position) #TODO (amélioration): Détecter quand on quitte une ligne droite pour mettre - de points
