@@ -13,6 +13,7 @@ func _ready() -> void:
 		_on_player_join(peer_id, GameManager.players[peer_id])
 	
 	GameManager.player_connected.connect(_on_player_join)
+	GameManager.player_disconnected.connect(_on_player_quit)
 
 func _on_player_join(peer_id: int, player_info: Dictionary):
 	var label = Label.new()
@@ -23,6 +24,13 @@ func _on_player_join(peer_id: int, player_info: Dictionary):
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	
 	players_container.add_child(label)
+	update_ready_label()
+
+
+func _on_player_quit(peer_id: int):
+	var label = players_container.get_node(str(peer_id))
+	if label:
+		label.queue_free()
 	update_ready_label()
 
 

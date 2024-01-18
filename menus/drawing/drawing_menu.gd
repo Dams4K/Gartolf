@@ -27,7 +27,7 @@ func _on_colors_container_color_selected(color) -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		save_drawing()
-	print(GameManager.sentences)
+#	print(GameManager.sentences)
 
 #TODO: TMP FUNCTION
 func save_drawing():

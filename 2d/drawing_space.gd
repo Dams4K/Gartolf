@@ -6,7 +6,9 @@ enum TOOLS {
 	ERASER,
 	LINE,
 	RECTANGLE_EMPTY,
-	RECTANGLE_FILLED
+	RECTANGLE_FILLED,
+	CIRCLE_EMPTY,
+	CIRCLE_FILLED
 }
 
 @export var current_tool: TOOLS = TOOLS.BRUSH
@@ -17,6 +19,7 @@ enum TOOLS {
 
 var current_line: Line2D
 var current_polygon: Polygon2D
+var current_circle: Circle2D
 
 var history_backward_index = 0
 
@@ -31,6 +34,7 @@ func _input(event: InputEvent) -> void:
 		# current line anymore
 		current_line = null
 		current_polygon = null
+		current_circle = null
 	
 	match current_tool:
 		TOOLS.BRUSH:
@@ -43,6 +47,10 @@ func _input(event: InputEvent) -> void:
 			handle_rectangle_empty(event, current_color, width)
 		TOOLS.RECTANGLE_FILLED:
 			handle_rectangle_filled(event, current_color, width)
+		TOOLS.CIRCLE_EMPTY:
+			handle_circle(event, current_color, width, false)
+		TOOLS.CIRCLE_FILLED:
+			handle_circle(event, current_color, width, true)
 
 
 func _process(delta: float) -> void:
@@ -125,7 +133,6 @@ func handle_rectangle_filled(event: InputEvent, color: Color, width: int):
 	if event is InputEventMouseButton:
 		if event.pressed:
 			center_object_pos = event.position
-			
 			current_polygon = create_polygon(color)
 			
 			var polygon = []
@@ -150,6 +157,20 @@ func handle_rectangle_filled(event: InputEvent, color: Color, width: int):
 		for i in range(len(polygon)):
 			current_polygon.polygon = polygon
 
+func handle_circle(event: InputEvent, color: Color, width: float, filled: bool):
+	if event is InputEventMouseButton:
+		if event.pressed:
+			center_object_pos = event.position
+			current_circle = Circle2D.new()
+			current_circle.position = center_object_pos
+			current_circle.default_color = color
+			current_circle.width = width
+			current_circle.filled = filled
+			
+			lines.add_child(current_circle)
+	
+	elif event is InputEventMouseMotion and current_circle:
+		current_circle.radius = center_object_pos.distance_to(event.position)
 
 func handle_brush(event: InputEventMouse, color: Color, width: int, gap: int = 5):
 	if event is InputEventMouseButton:
