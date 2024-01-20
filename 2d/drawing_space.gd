@@ -173,7 +173,8 @@ func handle_ellipse(event: InputEvent, color: Color, width: float, filled: bool)
 		current_ellipse.ellipse_scale = (event.position - center_object_pos)/2
 		
 		if Input.is_key_pressed(KEY_SHIFT):
-			current_ellipse.ellipse_scale = Vector2.ONE * current_ellipse.ellipse_scale[current_ellipse.ellipse_scale.max_axis_index()]
+			current_ellipse.ellipse_scale = Vector2.ONE * abs(current_ellipse.ellipse_scale[current_ellipse.ellipse_scale.max_axis_index()])  * (event.position - center_object_pos).sign()
+			print(current_ellipse.ellipse_scale)
 		
 		if Input.is_key_pressed(KEY_CTRL):
 			current_ellipse.anchor = current_ellipse.ANCHOR.CENTER

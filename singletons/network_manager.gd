@@ -46,13 +46,13 @@ func create_server(port: int = DEFAULT_PORT, max_players: int = MAX_PLAYER) -> i
 	peer = ENetMultiplayerPeer.new()
 	var err = peer.create_server(port, MAX_PLAYER) #TODO: catch errors
 	if err != OK:
-		printerr("Can't create server with port %s" % port)
+		if err == ERR_CANT_CREATE:
+			printerr("Can't create server with port %s" % port)
 		return err
 	
-	Discovery.as_server({
-		"max_players": max_players,
-		"port": port
-	})
+	Discovery.as_server()
+	Discovery.server_data.max_players = MAX_PLAYER
+	Discovery.server_data.port = port
 	
 	multiplayer.multiplayer_peer = peer
 	

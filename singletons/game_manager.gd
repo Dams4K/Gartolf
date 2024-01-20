@@ -29,6 +29,7 @@ func update_sentence(sentence: String, round: int):
 func start_game():
 	has_started = true
 	NetworkManager.allow_connection = false
+	Discovery.server_data.status = RServerData.STATUS.PLAYING
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -39,6 +40,7 @@ func register_player(new_player_info):
 func _register_player(peer_id, new_player_info):
 	players[peer_id] = new_player_info
 	self.player_connected.emit(peer_id, new_player_info)
+	self.update_discovery()
 
 func _on_connected_ok():
 	var peer_id = multiplayer.get_unique_id()
@@ -48,9 +50,14 @@ func _on_connected_ok():
 func _on_player_disconnect(peer_id: int):
 	players.erase(peer_id)
 	self.player_disconnected.emit(peer_id)
+	update_discovery()
 
 func _on_player_connect(peer_id, player_info):
 	register_player.rpc_id(peer_id, player_info)
 
 func _on_server_disconnected():
 	self.players.clear()
+
+func update_discovery():
+	if multiplayer.is_server():
+		Discovery.server_data.total_players = len(players)

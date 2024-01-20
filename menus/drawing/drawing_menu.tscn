@@ -125,9 +125,23 @@ texture = ExtResource("5_ex55n")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="BottomContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="BottomContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer/VBoxContainer/BottomContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="HSlider2" type="HSlider" parent="HBoxContainer/VBoxContainer/BottomContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/BottomContainer"]
+layout_mode = 2
+text = "Terminer"
 
 [node name="RightContainer" type="HBoxContainer" parent="HBoxContainer"]
 layout_mode = 2

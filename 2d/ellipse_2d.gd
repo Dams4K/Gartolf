@@ -7,11 +7,8 @@ enum ANCHOR {
 	CENTER
 }
 
-## We do not want this to change, the look of the ellipse will change with the scale
-const radius := 1
-
 @export var anchor: ANCHOR = ANCHOR.TOP_LEFT : set = set_anchor
-@export_range(1, 100, 0.05, "or_greater", "hide_slider", "suffix:px") var width := 1.0 : set = set_width
+@export_range(0.05, 100, 0.05, "or_greater", "hide_slider", "suffix:px") var width := 1.0 : set = set_width
 @export var default_color := Color.BLACK : set = set_default_color
 @export var filled := false : set = set_filled
 @export_range(1, 360, 1, "suffix:deg") var step := 10.0 : set = set_step
@@ -46,16 +43,16 @@ func update_ellipse() -> void:
 	var k = 0
 	
 	if anchor == ANCHOR.TOP_LEFT:
-		h = radius * ellipse_scale.x
-		k = radius * ellipse_scale.y
+		h = ellipse_scale.x
+		k = ellipse_scale.y
 	var r_step = step*PI/360
 	
 	var last_x = null
 	var last_y = null
 	
 	while t < 2*PI:
-		var x = h - ellipse_scale.x * radius*cos(t)
-		var y = k - ellipse_scale.y * radius*sin(t)
+		var x = h - ellipse_scale.x * cos(t)
+		var y = k - ellipse_scale.y * sin(t)
 		points.append(Vector2(x, y))
 		last_x = x
 		last_y = y

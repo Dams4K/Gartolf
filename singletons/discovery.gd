@@ -1,13 +1,15 @@
 extends Node
 
-signal server_scanned(server_id: String, server_data: Dictionary)
+signal server_scanned(server_id: String)
+signal server_timed_out(server_id: String, server_data: RServerData)
 
 const D_GAME = "gartofl"
 const D_GET_SERVER = "get_server"
 const G_SEND_SERVER = "send_server"
+const TIME_OUT = 10
 
 const SCANNING_PORT: int = 4040
-const SCANNING_TIME: float = 1
+const SCANNING_TIME: float = 30
 
 var client_discovery: PacketPeerUDP
 var server_discovery: UDPServer
@@ -17,7 +19,7 @@ var scanned_servers: Dictionary = {}
 
 var is_server: bool = false
 
-var server_data: Dictionary = {"err": "no data"}
+var server_data: RServerData
 
 ## Scan the network to search for existing server
 func scan():
@@ -32,7 +34,7 @@ func scan():
 		"type": D_GET_SERVER
 	})
 	
-	get_tree().create_timer(self.SCANNING_TIME).timeout.connect(self.stop_client)
+#	get_tree().create_timer(self.SCANNING_TIME).timeout.connect(self.stop_client)
 #	scanned_servers = {} # Don't clear previously found server (/!\ servers no longer available are still in the dict) 
 	self.is_scanning = true
 
@@ -55,18 +57,18 @@ func handle_client():
 	if data.get("game") != D_GAME:
 		return
 	
-	var server_ip = client_discovery.get_packet_ip()
-	var server_port = client_discovery.get_packet_port()
-	var server_id = "%s:%s" % [server_ip, server_port]
-	
-	if data.get("type") == G_SEND_SERVER and not server_id in scanned_servers:
-		var server_data = data.get("data", {})
+	if data.get("type") == G_SEND_SERVER:
+		var _server_data: RServerData = RServerData.new(data.get("data", {}))
 		
-		server_data["ip"] = server_ip
+		var server_ip = client_discovery.get_packet_ip()
+		var server_port = _server_data.port
+		var server_id = "%s:%s" % [server_ip, server_port]
 		
-		scanned_servers[server_id] = server_data
-		server_scanned.emit(server_id, server_data)
-
+		scanned_servers[server_id] = {
+			"last_update": Time.get_unix_time_from_system(),
+			"data": _server_data
+		}
+		server_scanned.emit(server_id)
 
 
 func handle_server():
@@ -92,21 +94,32 @@ func handle_server():
 		peer_discovery.put_var({
 			"game": D_GAME,
 			"type": G_SEND_SERVER,
-			"data": self.server_data
+			"data": self.server_data.to_dict()
 		})
+
+func search_timed_out_servers() -> void:
+	var current_time = Time.get_unix_time_from_system()
+	for server_id in scanned_servers:
+		if current_time - scanned_servers[server_id].last_update > TIME_OUT:
+			server_timed_out.emit(server_id, scanned_servers[server_id].data)
+			scanned_servers.erase(server_id)
 
 func _process(delta: float) -> void:
 	handle_client()
 	handle_server()
+	search_timed_out_servers()
 
-func as_server(data: Dictionary):
+func as_server():
 	if self.client_discovery:
 		self.stop_client()
 	
-	self.server_data = data
+	self.server_data = RServerData.new()
 	
 	self.server_discovery = UDPServer.new()
 	var err = self.server_discovery.listen(SCANNING_PORT, "0.0.0.0")
 	if err != OK:
 		printerr("ERROR - Discovery server listen: %s" % err)
 	self.is_server = true
+
+func get_server_data(server_id: String) -> RServerData:
+	return scanned_servers[server_id]["data"]
