@@ -40,14 +40,6 @@ theme_override_constants/separation = 12
 [node name="VBoxContainer2" type="VBoxContainer" parent="MainMenu/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-theme_type_variation = &"LabelTitle"
-text = "Créer"
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-
 [node name="HostPanel" type="Panel" parent="MainMenu/HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
@@ -61,41 +53,52 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Title" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "Créer"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer"]
 layout_mode = 2
 
-[node name="NamesVContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer"]
+[node name="NameContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PlayerNameLabel" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer/NamesVContainer"]
+[node name="PlayerNameLabel" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer/NameContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_type_variation = &"LabelTitleSmall"
 text = "Name :"
 
-[node name="PlayerNameLineEdit" type="LineEdit" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer/NamesVContainer"]
+[node name="PlayerNameLineEdit" type="LineEdit" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer/NameContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+placeholder_text = ":)"
+context_menu_enabled = false
 
-[node name="LineEditsVContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer"]
+[node name="PortContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer/LineEditsVContainer"]
+[node name="Label" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer/PortContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_type_variation = &"LabelTitleSmall"
 text = "Port :"
 
-[node name="PortLineEdit" type="LineEdit" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer/LineEditsVContainer"]
+[node name="PortLineEdit" type="LineEdit" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer/PortContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "4242"
+context_menu_enabled = false
 virtual_keyboard_type = 2
 
-[node name="ErrorHostLabel" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer/LineEditsVContainer"]
+[node name="ErrorHostLabel" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 modulate = Color(1, 0, 0, 0.729412)
 layout_mode = 2
@@ -106,13 +109,26 @@ autowrap_mode = 3
 [node name="HostButton" type="Button" parent="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
-text = "Host"
+text = "Démarrer"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer"]
 custom_minimum_size = Vector2(384, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer"]
+[node name="JoinPanel" type="Panel" parent="MainMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelTitle"
 text = "Rejoindre"
@@ -120,44 +136,37 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="JoinPanel" type="Panel" parent="MainMenu/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="ScrollContainer" type="ScrollContainer" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_scroll_mode = 0
-
-[node name="ServersContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel/ScrollContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="EmptyLabel" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel"]
+[node name="EmptyLabel" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel/VBoxContainer"]
 unique_name_in_owner = true
 modulate = Color(0.898039, 0.898039, 0.898039, 0.156863)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_vertical = 3
 theme_type_variation = &"LabelTitleSmall"
 text = "Vide"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ScrollContainer" type="ScrollContainer" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+horizontal_scroll_mode = 0
+
+[node name="ServersContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AddServerButton" type="Button" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel/VBoxContainer"]
+layout_mode = 2
+text = "Ajouter un serveur"
+
 [node name="Timer" type="Timer" parent="MainMenu"]
 wait_time = 2.0
 autostart = true
 
-[connection signal="text_changed" from="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer/NamesVContainer/PlayerNameLineEdit" to="." method="_on_player_name_line_edit_text_changed"]
-[connection signal="text_changed" from="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer/LineEditsVContainer/PortLineEdit" to="." method="_on_port_line_edit_text_changed"]
+[connection signal="text_changed" from="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/VBoxContainer/PortContainer/PortLineEdit" to="." method="_on_port_line_edit_text_changed"]
 [connection signal="pressed" from="MainMenu/HBoxContainer/VBoxContainer2/HostPanel/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="MainMenu/HBoxContainer/VBoxContainer/JoinPanel/VBoxContainer/AddServerButton" to="." method="_on_add_server_button_pressed"]
 [connection signal="timeout" from="MainMenu/Timer" to="." method="_on_timer_timeout"]

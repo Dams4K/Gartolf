@@ -67,6 +67,12 @@ func _ready() -> void:
 
 
 func _on_host_button_pressed() -> void:
+	var player_name: StringName = player_name_line_edit.text
+	if player_name.is_empty():
+		player_name = player_name_line_edit.placeholder_text
+	
+	NetworkManager.set_player_name(player_name)
+	
 	var port: String = port_line_edit.text
 	if port.is_empty():
 		port = port_line_edit.placeholder_text
@@ -77,17 +83,12 @@ func _on_host_button_pressed() -> void:
 			get_tree().change_scene_to_file("res://menus/lobby_menu.tscn")
 		ERR_CANT_CREATE:
 			show_host_error("Ouverture impossible avec le port %s" % port)
-		
 
 
 func _on_join_button_pressed() -> void:
 	var err = NetworkManager.join_server("127.0.0.1")
 	if err == OK: # No error
 		pass
-
-
-func _on_player_name_line_edit_text_changed(new_text: String) -> void:
-	NetworkManager.set_player_name(new_text)
 
 
 func _on_port_line_edit_text_changed(new_text: String) -> void:
@@ -108,6 +109,7 @@ func _on_server_scanned(server_id: String):
 	var node_name = server_id.replace(".", "_").replace(":", "_")
 	
 	var server_btn = servers_container.get_node_or_null(node_name)
+	
 	if not server_btn:
 		empty_label.hide()
 		
@@ -140,3 +142,7 @@ func join_server(server_id: String) -> void:
 
 func show_host_error(message: String) -> void:
 	error_host_label.text = message
+
+
+func _on_add_server_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://menus/add_server_menu.tscn")

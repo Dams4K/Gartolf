@@ -1,0 +1,104 @@
+[gd_scene load_steps=4 format=3 uid="uid://25p8skqg8efq"]
+
+[ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_na4bh"]
+[ext_resource type="Texture2D" uid="uid://indkkq3se0kr" path="res://assets/textures/background2.png" id="1_wg66a"]
+[ext_resource type="Script" path="res://menus/add_server_menu.gd" id="2_3scel"]
+
+[node name="AddServerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_na4bh")
+script = ExtResource("2_3scel")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_wg66a")
+stretch_mode = 6
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelTitle"
+text = "Ajouter un serveur"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AddressContainer" type="VBoxContainer" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/VBoxContainer/AddressContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelTitleSmall"
+text = "Adresse :"
+
+[node name="AddressLineEdit" type="LineEdit" parent="CenterContainer/Panel/VBoxContainer/AddressContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "exemple.com"
+caret_blink = true
+
+[node name="PortContainer" type="VBoxContainer" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/VBoxContainer/PortContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelTitleSmall"
+text = "Port :"
+
+[node name="PortLineEdit" type="LineEdit" parent="CenterContainer/Panel/VBoxContainer/PortContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "4242"
+
+[node name="ErrorLabel" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+theme_type_variation = &"LabelTitleXSmall"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="AddButton" type="Button" parent="CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ajouter"
+
+[node name="CancelButton" type="Button" parent="CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 10
+size_flags_stretch_ratio = 0.4
+text = "Annuler"
+
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/HBoxContainer/AddButton" to="." method="_on_add_button_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
