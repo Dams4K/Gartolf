@@ -27,9 +27,10 @@ func update_sentence(sentence: String, round: int):
 
 
 func start_game():
-	has_started = true
-	NetworkManager.allow_connection = false
-	Discovery.server_data.status = RServerData.STATUS.PLAYING
+	if multiplayer.is_server():
+		has_started = true
+		NetworkManager.allow_connection = false
+		Discovery.server_data.status = RServerData.STATUS.PLAYING
 
 
 @rpc("any_peer", "call_local", "reliable")

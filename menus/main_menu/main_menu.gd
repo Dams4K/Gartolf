@@ -131,7 +131,7 @@ func _on_server_timed_out(server_id: String, server_data: RServerData):
 		servers_container.remove_child(node)
 		node.queue_free()
 	
-	if servers_container.get_child_count() == 0:
+	if servers_container.get_child_count() == 1: # the 1 is empty_label
 		empty_label.show()
 
 func join_server(server_id: String) -> void:

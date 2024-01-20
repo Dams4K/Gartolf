@@ -136,20 +136,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="EmptyLabel" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel/VBoxContainer"]
-unique_name_in_owner = true
-modulate = Color(0.898039, 0.898039, 0.898039, 0.156863)
-layout_mode = 2
-size_flags_vertical = 3
-theme_type_variation = &"LabelTitleSmall"
-text = "Vide"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="ScrollContainer" type="ScrollContainer" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.0
 horizontal_scroll_mode = 0
 
 [node name="ServersContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel/VBoxContainer/ScrollContainer"]
@@ -158,8 +147,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="EmptyLabel" type="Label" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel/VBoxContainer/ScrollContainer/ServersContainer"]
+unique_name_in_owner = true
+modulate = Color(0.898039, 0.898039, 0.898039, 0.156863)
+layout_mode = 2
+size_flags_vertical = 6
+theme_type_variation = &"LabelTitleSmall"
+text = "Vide"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="AddServerButton" type="Button" parent="MainMenu/HBoxContainer/VBoxContainer/JoinPanel/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 text = "Ajouter un serveur"
 
 [node name="Timer" type="Timer" parent="MainMenu"]
