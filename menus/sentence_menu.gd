@@ -36,6 +36,7 @@ var DEFAULT_SENTENCES = [
 @onready var timer_label: Label = %TimerLabel
 @onready var timer_label_text: String = timer_label.text
 @onready var timer: Timer = $Timer
+@onready var drawing_texture: TextureRect = %DrawingTexture
 
 var players_ready: Array[int] = []
 
@@ -44,9 +45,11 @@ func _ready() -> void:
 	randomize()
 	DEFAULT_SENTENCES.shuffle()
 	sentence_line_edit.placeholder_text = DEFAULT_SENTENCES[0]
+	
 	_on_finish_button_toggled(false)
 	
 	GameManager.all_sentences_received.connect(_on_all_sentences_received)
+	drawing_texture.texture = GameManager.get_our_drawing()
 
 func _process(delta: float) -> void:
 	timer_label.text = timer_label_text % timer.time_left

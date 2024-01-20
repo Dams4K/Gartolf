@@ -18,6 +18,8 @@ var current_color: Color = Color.BLACK
 var current_tool
 
 func _ready() -> void:
+	GameManager.all_drawings_received.connect(_on_all_drawings_received)
+	
 	drawing_space.current_color = current_color
 	drawing_viewport.size = SCREEN_SIZE
 	
@@ -50,6 +52,22 @@ func _on_tools_container_tool_changed(tool_name) -> void:
 	drawing_space.current_tool = DrawingSpace.TOOLS.get(tool_name)
 
 
+@rpc("authority", "call_local", "reliable")
+func end_drawing():
+	var drawing: ViewportTexture = drawing_viewport.get_texture()
+	var image: Image = drawing.get_image()
+	var buffer: PackedByteArray = image.save_png_to_buffer()
+	
+	GameManager.update_drawing.rpc(buffer)
+
+
 func _on_timer_timeout() -> void:
+	if multiplayer.is_server(): # It's the server who start
+		end_drawing.rpc()
+	
 	#TODO: find a better way to keep the player from drawing
 	$HBoxContainer.hide()
+
+func _on_all_drawings_received():
+	GameManager.current_round += 1
+	get_tree().change_scene_to_file("res://menus/sentence_menu.tscn")

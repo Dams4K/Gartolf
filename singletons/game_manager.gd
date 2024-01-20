@@ -2,9 +2,12 @@ extends Node
 
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
-signal all_sentences_received()
 
-var sentences = []
+signal all_sentences_received
+signal all_drawings_received
+
+var sentences: Array[Dictionary] = []
+var drawings: Array[Dictionary] = []
 
 var has_started: bool = false
 
@@ -35,6 +38,16 @@ func update_sentence(sentence: String):
 	sentences[current_round][id] = sentence
 	if len(sentences[current_round]) == len(players):
 		all_sentences_received.emit()
+
+@rpc("any_peer", "call_local", "reliable")
+func update_drawing(buffer: PackedByteArray):
+	var id = multiplayer.get_remote_sender_id()
+	while len(drawings) <= current_round:
+		drawings.append({})
+	
+	drawings[current_round][id] = buffer
+	if len(drawings[current_round]) == len(players):
+		all_drawings_received.emit()
 
 func start_game():
 	if multiplayer.is_server():
@@ -91,3 +104,23 @@ func get_our_sentence():
 	printt(our_order_index, our_player_index, sentences)
 	var our_player_id = players.keys()[our_player_index]
 	return sentences[current_round][our_player_id]
+
+func get_our_drawing() -> Texture:
+	if current_round == 0:
+		return null
+	
+	var our_id = multiplayer.get_unique_id()
+	var our_order_index = players_order.find(our_id)
+	if our_order_index == -1:
+		printerr("Can't find our_id in players_order")
+	
+	var our_player_index = (our_order_index + 1) % (len(players)) #TODO: may change this?
+	var our_player_id = players_order[our_player_index]
+	
+	var buffer: PackedByteArray = drawings[current_round-1][our_player_id]
+	
+	var image = Image.create(1920, 1080, true, Image.FORMAT_BPTC_RGBA)
+	image.load_png_from_buffer(buffer)
+	var tex := ImageTexture.create_from_image(image)
+	
+	return tex
