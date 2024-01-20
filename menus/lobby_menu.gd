@@ -28,7 +28,7 @@ func _on_player_join(peer_id: int, player_info: Dictionary):
 
 
 func _on_player_quit(peer_id: int):
-	var label = players_container.get_node(str(peer_id))
+	var label = players_container.get_node_or_null(str(peer_id))
 	if label:
 		label.queue_free()
 	update_ready_label()
@@ -40,7 +40,7 @@ func _on_ready_button_pressed() -> void:
 @rpc("any_peer", "call_local", "reliable")
 func toggle_ready():
 	var id = multiplayer.get_remote_sender_id()
-	var label: Label = players_container.get_node(str(id))
+	var label: Label = players_container.get_node_or_null(str(id))
 	if label == null:
 		printerr("toggle_ready - label %s don't exist" % id)
 	
