@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c57ak4ejgf8sh"]
 
-[ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_m6kbb"]
+[ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_lh7q4"]
 [ext_resource type="Script" path="res://menus/main_menu/main_menu.gd" id="1_maur7"]
 [ext_resource type="Texture2D" uid="uid://indkkq3se0kr" path="res://assets/textures/background2.png" id="2_ryfvt"]
 
@@ -11,7 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_m6kbb")
+theme = ExtResource("1_lh7q4")
 script = ExtResource("1_maur7")
 
 [node name="TextureRect" type="TextureRect" parent="."]

@@ -1,13 +1,13 @@
-[gd_resource type="Theme" load_steps=22 format=3 uid="uid://ccjhg66qfqvmh"]
+[gd_resource type="Theme" load_steps=20 format=3 uid="uid://ccjhg66qfqvmh"]
 
 [ext_resource type="FontFile" uid="uid://doxh6ngtlw5fd" path="res://assets/fonts/Roboto/Roboto-Black.ttf" id="1_1ixwi"]
 [ext_resource type="FontFile" uid="uid://bk0vwpk3oru6" path="res://assets/fonts/Roboto/Roboto-Regular.ttf" id="2_dtkto"]
-[ext_resource type="StyleBox" uid="uid://b7ru2p2ibp6l5" path="res://assets/materials/themes/panel_style_box.tres" id="2_rfjk8"]
+[ext_resource type="StyleBox" uid="uid://ewrwnb1huo54" path="res://assets/materials/themes/line_edit_box.tres" id="3_7f4gh"]
+[ext_resource type="StyleBox" path="res://assets/materials/themes/label_style_box.tres" id="3_82m14"]
 [ext_resource type="FontFile" uid="uid://dslfclvha8vu2" path="res://assets/fonts/Roboto/Roboto-MediumItalic.ttf" id="3_dttkp"]
 [ext_resource type="FontFile" uid="uid://b30t2nfnu4aux" path="res://assets/fonts/Roboto/Roboto-Medium.ttf" id="3_jr3ub"]
 [ext_resource type="FontFile" uid="uid://d370hnonxah1d" path="res://assets/fonts/Roboto/Roboto-LightItalic.ttf" id="5_lnkg4"]
-[ext_resource type="Texture2D" uid="uid://drxnap7p5f0ge" path="res://assets/textures/themes/line_edit_texture.svg" id="6_bt1q1"]
-[ext_resource type="Texture2D" uid="uid://d0ngscmg3wbm7" path="res://assets/textures/themes/panel_texture.svg" id="7_dcm2e"]
+[ext_resource type="Texture2D" uid="uid://d0ngscmg3wbm7" path="res://assets/textures/themes/panel_texture.svg" id="7_8qpci"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0yiq"]
 content_margin_left = 4.0
@@ -72,7 +72,7 @@ content_margin_right = 6.0
 content_margin_left = 6.0
 content_margin_right = 6.0
 
-[sub_resource type="Image" id="Image_60t8i"]
+[sub_resource type="Image" id="Image_tq6fd"]
 data = {
 "data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 96, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 96, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 96, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 96, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 97, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 96, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 96, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 97, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 96, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 96, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 97, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 97, 255, 255, 255, 96, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 96, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 97, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 96, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 97, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 96, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 96, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 96, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 96, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 96, 255, 255, 255, 97, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 96, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 96, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 97, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 96, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 96, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 97, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 97, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 96, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 97, 255, 255, 255, 191, 255, 255, 255, 191, 255, 255, 255, 96, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 97, 255, 255, 255, 96, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 97, 255, 255, 255, 96, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
 "format": "RGBA8",
@@ -82,7 +82,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_rpgk5"]
-image = SubResource("Image_60t8i")
+image = SubResource("Image_tq6fd")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cwmc2"]
 content_margin_left = 4.0
@@ -105,29 +105,8 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gb20k"]
-texture = ExtResource("6_bt1q1")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kr43s"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 0.3)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_biswi"]
-texture = ExtResource("7_dcm2e")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fmeyn"]
+texture = ExtResource("7_8qpci")
 texture_margin_left = 12.0
 texture_margin_top = 12.0
 texture_margin_right = 12.0
@@ -164,7 +143,7 @@ HeaderLarge/fonts/font = ExtResource("1_1ixwi")
 LabelTitle/base_type = &"Label"
 LabelTitle/font_sizes/font_size = 36
 LabelTitle/fonts/font = ExtResource("1_1ixwi")
-LabelTitle/styles/normal = ExtResource("2_rfjk8")
+LabelTitle/styles/normal = ExtResource("3_82m14")
 LabelTitleSmall/base_type = &"Label"
 LabelTitleSmall/font_sizes/font_size = 24
 LabelTitleSmall/fonts/font = ExtResource("3_dttkp")
@@ -188,6 +167,6 @@ LineEdit/constants/outline_size = 0
 LineEdit/font_sizes/font_size = 32
 LineEdit/icons/clear = SubResource("ImageTexture_rpgk5")
 LineEdit/styles/focus = SubResource("StyleBoxFlat_cwmc2")
-LineEdit/styles/normal = SubResource("StyleBoxTexture_gb20k")
-LineEdit/styles/read_only = SubResource("StyleBoxFlat_kr43s")
-Panel/styles/panel = SubResource("StyleBoxTexture_biswi")
+LineEdit/styles/normal = ExtResource("3_7f4gh")
+LineEdit/styles/read_only = ExtResource("3_7f4gh")
+Panel/styles/panel = SubResource("StyleBoxTexture_fmeyn")
