@@ -15,10 +15,10 @@ func _ready() -> void:
 	GameManager.player_connected.connect(_on_player_join)
 	GameManager.player_disconnected.connect(_on_player_quit)
 
-func _on_player_join(peer_id: int, player_info: Dictionary):
+func _on_player_join(peer_id: int, player_info):
 	var label = Label.new()
 	label.name = str(peer_id)
-	label.text = player_info.name
+	label.text = player_info.get_player_name()
 	label.modulate = Color.RED
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

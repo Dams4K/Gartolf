@@ -64,30 +64,36 @@ func set_players_order(order: Array):
 	players_order = order
 
 
-@rpc("any_peer", "call_local", "reliable")
-func register_player(new_player_info):
+## Let everyone know you exist
+@rpc("any_peer", "reliable")
+func send_ourself(player_info_data: Dictionary):
+	var player_info = PlayerInfo.new(player_info_data)
 	var peer_id = multiplayer.get_remote_sender_id()
-	self._register_player(peer_id, new_player_info)
+	self.register_player(peer_id, player_info)
 
-func _register_player(peer_id, new_player_info):
-	players[peer_id] = new_player_info
-	self.player_connected.emit(peer_id, new_player_info)
+## Register a player
+func register_player(peer_id: int, player_info: PlayerInfo):
+	players[peer_id] = player_info
+	self.player_connected.emit(peer_id, player_info)
 	self.update_discovery()
 
 func _on_connected_ok():
 	var peer_id = multiplayer.get_unique_id()
-	# Register the player in his session
-	self._register_player(peer_id, NetworkManager.player_info)
+	# Register our self in our session
+	self.register_player(peer_id, NetworkManager.player_info)
 
 func _on_player_disconnect(peer_id: int):
+	print_debug("%s: (%s) disconnected" % [peer_id, players[peer_id].name])
 	players.erase(peer_id)
 	self.player_disconnected.emit(peer_id)
 	update_discovery()
 
-func _on_player_connect(peer_id, player_info):
-	register_player.rpc_id(peer_id, player_info)
+func _on_player_connect(peer_id):
+	print_debug("New player connected: %s" % [peer_id])
+	send_ourself.rpc_id(peer_id, NetworkManager.player_info.to_dict())
 
 func _on_server_disconnected():
+	print_debug("Server disconnected")
 	self.players.clear()
 
 func update_discovery():
@@ -101,8 +107,8 @@ func get_our_sentence():
 		printerr("Can't find our_id in players_order")
 	
 	var our_player_index = (our_order_index + 1) % len(players)
-	printt(our_order_index, our_player_index, sentences)
 	var our_player_id = players_order[our_player_index]
+	
 	return sentences[current_round][our_player_id]
 
 func get_our_drawing() -> Texture:

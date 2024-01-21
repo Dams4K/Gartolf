@@ -3,7 +3,7 @@ extends Node
 
 ## I will use NetworkManager.connected_to_server instead multiplayer.connected_to_server, allowing me to add logic between the network and the game
 signal connected_to_server
-signal player_connected(peer_id, player_info)
+signal player_connected(peer_id: int)
 signal player_disconnected(peer_id)
 signal server_disconnected
 
@@ -18,19 +18,9 @@ const DEFAULT_PLAYER_NAME: String = "DefaultName"
 ## Multiplayer peer
 var peer: ENetMultiplayerPeer
 
-## Current player information
-## TODO: move this somewhere else
-var player_info: Dictionary = {
-	"name": DEFAULT_PLAYER_NAME
-}
+var player_info := PlayerInfo.setup()
 
 var allow_connection: bool = true
-
-# TODO: may replace player_info dict by a Resource?
-func set_player_name(value: String) -> void:
-	if value.is_empty():
-		value = DEFAULT_PLAYER_NAME
-	player_info.name = value
 
 func _ready():
 	multiplayer.peer_connected.connect(_on_player_connected)
@@ -75,7 +65,8 @@ func _on_player_connected(peer_id):
 	if multiplayer.is_server() and not allow_connection:
 		peer.disconnect_peer(peer_id)
 	else:
-		player_connected.emit(peer_id, player_info)
+		#print("_on_player_connected: ", peer_id, " you are: ", multiplayer.get_unique_id(), "(%s)" % player_info.name)
+		player_connected.emit(peer_id)
 
 
 func _on_player_disconnected(id):

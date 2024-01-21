@@ -58,7 +58,6 @@ func handle_client():
 		return
 	
 	if data.get("type") == G_SEND_SERVER:
-		print(data)
 		var _server_data: RServerData = RServerData.new(data.get("data", {}))
 		
 		var server_ip = client_discovery.get_packet_ip()

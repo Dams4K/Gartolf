@@ -1,48 +1,6 @@
 extends Control
 
 const SERVER_BUTTON: PackedScene = preload("res://menus/main_menu/server_button.tscn")
-var PSEUDOS: Array[StringName] = [
-	"Grimdal",
-	"Raptor",
-	"PetiteFée",
-	"Pewfan",
-	"Seltade",
-	"Kairrin",
-	"Potaaato",
-	"Neptendus",
-	"RainbowMan",
-	"Exominiate",
-	"Meyriu",
-	"Ectobiologiste",
-	"ItsGodHere",
-	"MaxMadMen",
-	"TankerTanker",
-	"Felipero",
-	"TheFlyingBat",
-	"JustEpic",
-	"LeGrandBlond",
-	"Azalee",
-	"OarisKiller",
-	"LeHamster",
-	"Dialove",
-	"Frexs",
-	"Rofaly",
-	"GeoMan",
-	"Kirna",
-	"Gruty",
-	"Fridame",
-	"Fluxy",
-	"Drastics",
-	"Grimace",
-	"Viiper",
-	"xXSerpentXx",
-	"Cristobal",
-	"Scubrina",
-	"Xanoneq",
-	"McTimley",
-	"LittleDank",
-	"Rocketman"
-]
 
 @onready var player_name_line_edit: LineEdit = %PlayerNameLineEdit
 @onready var port_line_edit: LineEdit = %PortLineEdit
@@ -52,10 +10,10 @@ var PSEUDOS: Array[StringName] = [
 
 func _ready() -> void:
 	randomize()
-	PSEUDOS.shuffle()
-	player_name_line_edit.placeholder_text = PSEUDOS[0]
 	
 	port_line_edit.placeholder_text = str(NetworkManager.DEFAULT_PORT)
+	player_name_line_edit.text = NetworkManager.player_info.name
+	player_name_line_edit.placeholder_text = NetworkManager.player_info.placeholder_name
 	
 	error_host_label.text = ""
 	
@@ -145,8 +103,5 @@ func _on_add_server_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://menus/add_server_menu.tscn")
 
 func set_player_name():
-	var player_name: StringName = player_name_line_edit.text
-	if player_name.is_empty():
-		player_name = player_name_line_edit.placeholder_text
-	
-	NetworkManager.set_player_name(player_name)
+	NetworkManager.player_info.name = player_name_line_edit.text
+	NetworkManager.player_info.save()
