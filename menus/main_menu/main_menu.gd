@@ -67,11 +67,7 @@ func _ready() -> void:
 
 
 func _on_host_button_pressed() -> void:
-	var player_name: StringName = player_name_line_edit.text
-	if player_name.is_empty():
-		player_name = player_name_line_edit.placeholder_text
-	
-	NetworkManager.set_player_name(player_name)
+	set_player_name()
 	
 	var port: String = port_line_edit.text
 	if port.is_empty():
@@ -135,6 +131,7 @@ func _on_server_timed_out(server_id: String, server_data: RServerData):
 		empty_label.show()
 
 func join_server(server_id: String) -> void:
+	set_player_name()
 	var server_data = Discovery.get_server_data(server_id)
 	var server_ip = server_id.split(":")[0]
 	var server_port = server_data.port
@@ -146,3 +143,10 @@ func show_host_error(message: String) -> void:
 
 func _on_add_server_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://menus/add_server_menu.tscn")
+
+func set_player_name():
+	var player_name: StringName = player_name_line_edit.text
+	if player_name.is_empty():
+		player_name = player_name_line_edit.placeholder_text
+	
+	NetworkManager.set_player_name(player_name)

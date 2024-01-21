@@ -102,7 +102,7 @@ func get_our_sentence():
 	
 	var our_player_index = (our_order_index + 1) % len(players)
 	printt(our_order_index, our_player_index, sentences)
-	var our_player_id = players.keys()[our_player_index]
+	var our_player_id = players_order[our_player_index]
 	return sentences[current_round][our_player_id]
 
 func get_our_drawing() -> Texture:
