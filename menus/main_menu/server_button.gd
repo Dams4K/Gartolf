@@ -1,18 +1,26 @@
 extends Button
 
-@export var status: RServerData.STATUS = RServerData.STATUS.OPEN : set = set_status
-@export var max_players: int = 64 : set = set_max_players
-@export var total_players: int = 0 : set = set_total_players
+var server: ServerDiscovered
 
 @onready var status_label: Label = %StatusLabel
 @onready var players_label: Label = %PlayersLabel
 
+var total_players: int = -1
+var max_players: int = -1
+
+func _ready() -> void:
+	if server:
+		max_players = server.server_data.max_players
+		server.new_status.connect(_on_new_status)
+		server.total_player_changed.connect(_on_total_player_changed)
+		
+		_on_new_status(server.server_data.status)
+		_on_total_player_changed(server.server_data.total_players)
+
 func update_players_label():
 	players_label.text = "%s/%s" % [total_players, max_players]
 
-func set_status(value: RServerData.STATUS) -> void:
-	status = value
-	
+func _on_new_status(status: RServerData.STATUS) -> void:
 	match status:
 		RServerData.STATUS.OPEN:
 			status_label.modulate = Color.GREEN
@@ -20,13 +28,9 @@ func set_status(value: RServerData.STATUS) -> void:
 			status_label.modulate = Color.RED
 			disabled = true
 	
-	status_label.text = RServerData.STATUS.keys()[value]
+	status_label.text = RServerData.STATUS.keys()[status]
 
-func set_max_players(value: int):
-	max_players = value
-	update_players_label()
-
-func set_total_players(value: int):
+func _on_total_player_changed(value: int):
 	total_players = value
 	update_players_label()
 

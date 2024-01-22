@@ -26,7 +26,8 @@ func _ready() -> void:
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 	
 	for custom_server in custom_servers.get_servers():
-		add_server(custom_server)
+		#add_server(custom_server)
+		pass
 
 
 func _on_host_button_pressed() -> void:
@@ -64,28 +65,22 @@ func _on_timer_timeout() -> void:
 	Discovery.scan()
 
 func _on_server_scanned(server_id: String):
-	var server_data: RServerData = Discovery.get_server_data(server_id)
-	self.add_server(server_data)
+	var server: ServerDiscovered = Discovery.get_node(server_id)
+	add_server_button(server)
 
 
-func add_server(server_data: RServerData):
-	var server_id = server_data.get_id()
-	var node_name = server_id.replace(".", "_").replace(":", "_")
+func add_server_button(server: ServerDiscovered):
+	var server_id = server.get_id()
+	var node_name = server.name
 	
-	var server_btn = servers_container.get_node_or_null(node_name)
+	empty_label.hide()
 	
-	if not server_btn:
-		empty_label.hide()
-		
-		server_btn = SERVER_BUTTON.instantiate()
-		server_btn.name = node_name
-		server_btn.pressed.connect(join_server.bind(server_id))
-		
-		servers_container.add_child(server_btn)
+	var server_btn = SERVER_BUTTON.instantiate()
+	server_btn.name = node_name
+	server_btn.pressed.connect(join_server.bind(server_id))
+	server_btn.server = server
 	
-	server_btn.status = server_data.status
-	server_btn.total_players = server_data.total_players
-	server_btn.max_players = server_data.max_players
+	servers_container.add_child(server_btn)
 
 
 func _on_server_timed_out(server_data: RServerData):
@@ -102,9 +97,9 @@ func _on_server_timed_out(server_data: RServerData):
 
 func join_server(server_id: String) -> void:
 	set_player_name()
-	var server_data = Discovery.get_server_data(server_id)
-	var server_ip = server_data.address
-	var server_port = server_data.port
+	var server = Discovery.get_node(server_id)
+	var server_ip = server.ip
+	var server_port = server.server_data.port
 	var err = NetworkManager.join_server(server_ip, server_port)
 
 func show_host_error(message: String) -> void:

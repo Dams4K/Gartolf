@@ -7,7 +7,6 @@ enum STATUS {
 	UNKOWN
 }
 
-@export var address: String = "localhost"
 @export var port: int = 4242
 @export var max_players: int = -1
 @export var total_players: int = -1
@@ -28,5 +27,5 @@ func _init(data: Dictionary = {}) -> void:
 		total_players = data.get("total_players", 0)
 		status = data.get("status", STATUS.OPEN)
 
-func get_id() -> String:
-	return "%s:%s" % [self.address, self.port]
+#func get_id() -> String:
+	#return "%s:%s" % [self.address, self.port]

@@ -3,6 +3,11 @@ extends Node
 signal server_scanned(server_id: String)
 signal server_timed_out(server_id: String, server_data: RServerData)
 
+
+enum Requests {
+	GET_SERVER
+}
+
 const D_GAME = "gartofl"
 const D_GET_SERVER = "get_server"
 const D_SEND_SERVER = "send_server"
@@ -10,14 +15,13 @@ const D_UPDATE_SERVER = "update_server"
 
 const TIME_OUT = 10
 
-const SCANNING_PORT: int = 4040
+var SCANNING_PORT: int = ProjectSettings.get("application/discovery/port")
 const SCANNING_TIME: float = 30
 
 var client_discovery: PacketPeerUDP
 var server_discovery: UDPServer
 
 var is_scanning: bool = false
-var scanned_servers: Dictionary = {}
 
 var is_server: bool = false
 
@@ -27,18 +31,11 @@ var server_data: RServerData
 
 func _ready() -> void:
 	as_client()
-	
-	update_timer = Timer.new()
-	update_timer.wait_time = 5
-	update_timer.timeout.connect(_on_update_timer_timeout)
-	add_child(update_timer)
-	update_timer.start()
 
 
 func _process(delta: float) -> void:
 	handle_client()
 	handle_server()
-	search_timed_out_servers()
 
 
 ## Scan the network to search for existing server
@@ -48,7 +45,7 @@ func scan():
 	
 	client_discovery.put_var({
 		"game": D_GAME,
-		"type": D_GET_SERVER
+		"request": Requests.GET_SERVER
 	})
 	
 	get_tree().create_timer(self.SCANNING_TIME).timeout.connect(self.stop_client)
@@ -67,25 +64,24 @@ func handle_client():
 		return
 	
 	var data: Dictionary = client_discovery.get_packet().decode_var(0)
+	
 	if data == null:
 		return
-	
 	if data.get("game") != D_GAME:
 		return
 	
-	if data.get("type") == D_SEND_SERVER:
+	
+	if data.get("answer_for") == Requests.GET_SERVER:
 		var _server_data: RServerData = RServerData.new(data.get("data", {}))
-		
 		var server_ip = client_discovery.get_packet_ip()
-		_server_data.address = server_ip
-		var server_port = _server_data.port
-		var server_id = "%s:%s" % [server_ip, server_port]
+		var server := ServerDiscovered.new(server_ip)
+		server.server_data = _server_data
+		var server_id: String = server.get_id()
 		
-		scanned_servers[server_id] = {
-			"last_update": Time.get_unix_time_from_system(),
-			"data": _server_data
-		}
-		server_scanned.emit(server_id)
+		server.name = server_id
+		if not has_node(server_id):
+			add_child(server)
+			server_scanned.emit(server_id)
 
 
 func handle_server():
@@ -103,28 +99,15 @@ func handle_server():
 	
 	if data == null:
 		return
-	
 	if data.get("game") != D_GAME:
 		return
 	
-	var data_type = data.get("type")
-	if data_type == D_GET_SERVER:
-		print_debug("Recieved get packet")
+	if data.get("request") == Requests.GET_SERVER:
 		peer_discovery.put_var({
 			"game": D_GAME,
-			"type": D_SEND_SERVER,
-			"data": self.server_data.to_dict()
+			"answer_for": Requests.GET_SERVER,
+			"data": server_data.to_dict()
 		})
-	elif data_type == D_UPDATE_SERVER:
-		print_debug("Recieved update packet")
-
-
-func search_timed_out_servers() -> void:
-	var current_time = Time.get_unix_time_from_system()
-	for server_id in scanned_servers:
-		if current_time - scanned_servers[server_id].last_update > TIME_OUT:
-			server_timed_out.emit(server_id, scanned_servers[server_id].data)
-			scanned_servers.erase(server_id)
 
 
 func as_client():
@@ -148,10 +131,6 @@ func as_server():
 	if err != OK:
 		printerr("ERROR - Discovery server listen: %s" % err)
 	is_server = true
-
-
-func get_server_data(server_id: String) -> RServerData:
-	return scanned_servers[server_id]["data"]
 
 
 func _on_update_timer_timeout():
