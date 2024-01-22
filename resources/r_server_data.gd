@@ -26,6 +26,3 @@ func _init(data: Dictionary = {}) -> void:
 		max_players = data.get("max_players", 0)
 		total_players = data.get("total_players", 0)
 		status = data.get("status", STATUS.OPEN)
-
-#func get_id() -> String:
-	#return "%s:%s" % [self.address, self.port]

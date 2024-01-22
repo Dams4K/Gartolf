@@ -40,7 +40,11 @@ func handle_packets():
 	if client.get_available_packet_count() == 0:
 		return
 	
-	var data: Dictionary = client.get_packet().decode_var(0)
+	var packet = client.get_packet()
+	if packet.is_empty():
+		return
+	
+	var data = packet.decode_var(0)
 	
 	if data == null:
 		return

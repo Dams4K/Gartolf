@@ -8,8 +8,6 @@ const SERVER_BUTTON: PackedScene = preload("res://menus/main_menu/server_button.
 @onready var empty_label: Label = %EmptyLabel
 @onready var error_host_label: Label = %ErrorHostLabel
 
-var custom_servers: CustomServers = CustomServers.setup()
-
 func _ready() -> void:
 	randomize()
 	
@@ -25,10 +23,8 @@ func _ready() -> void:
 	
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 	
-	for custom_server in custom_servers.get_servers():
-		#add_server(custom_server)
-		pass
-
+	for server_child in Discovery.get_children():
+		add_server_button(server_child)
 
 func _on_host_button_pressed() -> void:
 	set_player_name()

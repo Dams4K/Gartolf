@@ -4,10 +4,8 @@ extends Control
 @onready var port_line_edit: LineEdit = %PortLineEdit
 @onready var error_label: Label = %ErrorLabel
 
-var custom_servers: CustomServers = CustomServers.setup()
-
 func _on_add_button_pressed() -> void:
-	var address: String = address_line_edit.text
+	var address: String = address_line_edit.text.replace("localhost", "127.0.0.1")
 	var port: String = port_line_edit.text
 	if address.is_empty() or port.is_empty():
 		error_label.text = "Tu dois indiquer l'adresse et le port du serveur"
@@ -15,7 +13,7 @@ func _on_add_button_pressed() -> void:
 		error_label.text = "Le port ne doit contenir que des chiffres"
 	else: # Everything is okay (i guess?)
 		# Add server
-		custom_servers.add_server(address, port.to_int())
+		Discovery.custom_servers.add_server(address, port.to_int())
 		
 		# Go back to the main menu
 		exit()

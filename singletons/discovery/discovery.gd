@@ -27,10 +27,25 @@ var is_server: bool = false
 
 var server_data: RServerData
 
+@onready var custom_servers: CustomServers
+
 @onready var update_timer: Timer
 
 func _ready() -> void:
 	as_client()
+	
+	custom_servers = CustomServers.setup()
+	custom_servers.server_added.connect(_on_custom_server_added)
+	
+	for server in custom_servers.get_server_nodes():
+		add_child(server)
+		server_scanned.emit(server.get_id())
+
+
+func _on_custom_server_added(index: int):
+	var server = custom_servers.get_server_node(index)
+	add_child(server)
+	server_scanned.emit(server.get_id())
 
 
 func _process(delta: float) -> void:
