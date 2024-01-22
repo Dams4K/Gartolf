@@ -13,9 +13,11 @@ var SCREEN_SIZE = Vector2(
 @onready var timer_label: Label = %TimerLabel
 @onready var timer_label_text: String = timer_label.text
 @onready var timer: Timer = $Timer
+@onready var width_container: HBoxContainer = %WidthContainer
 
 var current_color: Color = Color.BLACK
-var current_tool
+var current_tool: int = DrawingSpace.TOOLS.BRUSH
+var current_opacity: float = 1.0
 
 func _ready() -> void:
 	GameManager.all_drawings_received.connect(_on_all_drawings_received)
@@ -24,6 +26,8 @@ func _ready() -> void:
 	drawing_viewport.size = SCREEN_SIZE
 	
 	sentence_label.text = GameManager.get_our_sentence()
+	
+	_on_width_container_width_changed(width_container.default_value)
 
 func _on_colors_container_color_selected(color) -> void:
 	current_color = color
@@ -71,3 +75,12 @@ func _on_timer_timeout() -> void:
 func _on_all_drawings_received():
 	GameManager.current_round += 1
 	get_tree().change_scene_to_file("res://menus/sentence_menu.tscn")
+
+
+func _on_opacity_slider_value_changed(value: float) -> void:
+	current_opacity = value
+	drawing_space.current_opacity = value
+
+
+func _on_width_container_width_changed(value: float) -> void:
+	drawing_space.width = value

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvewywda15qf2"]
+[gd_scene load_steps=13 format=3 uid="uid://cvewywda15qf2"]
 
 [ext_resource type="Script" path="res://menus/drawing/drawing_menu.gd" id="1_lj3hq"]
 [ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_tld3x"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://2g3qpd2pruh0" path="res://assets/textures/logo.png" id="5_ex55n"]
 [ext_resource type="PackedScene" uid="uid://dpu7uc2fbmia2" path="res://menus/drawing/colors_container.tscn" id="5_nufaf"]
 [ext_resource type="PackedScene" uid="uid://o3ga0gmgcd6e" path="res://menus/drawing/tools_container.tscn" id="6_vyiqk"]
+[ext_resource type="PackedScene" uid="uid://cwxawg4b3p0cv" path="res://menus/drawing/width_container.tscn" id="7_mc2rk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_otm71"]
 content_margin_left = 0.0
@@ -111,7 +112,7 @@ script = SubResource("GDScript_5sp3w")
 
 [node name="DrawingViewport" type="SubViewport" parent="HBoxContainer/VBoxContainer/DrawingTexture"]
 unique_name_in_owner = true
-size = Vector2i(1920, 1080)
+size = Vector2i(1280, 720)
 
 [node name="DrawingSpace" parent="HBoxContainer/VBoxContainer/DrawingTexture/DrawingViewport" instance=ExtResource("4_mniss")]
 unique_name_in_owner = true
@@ -142,15 +143,21 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_vertical = 2
 
-[node name="HSlider" type="HSlider" parent="HBoxContainer/VBoxContainer/BottomContainer"]
+[node name="WidthContainer" parent="HBoxContainer/VBoxContainer/BottomContainer" instance=ExtResource("7_mc2rk")]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
+min_value = 5.0
+max_value = 26.0
+default_value = 5.0
 
-[node name="HSlider2" type="HSlider" parent="HBoxContainer/VBoxContainer/BottomContainer"]
+[node name="OpacitySlider" type="HSlider" parent="HBoxContainer/VBoxContainer/BottomContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+min_value = 0.2
+max_value = 1.0
+step = 0.2
+value = 1.0
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/BottomContainer"]
 layout_mode = 2
@@ -170,5 +177,7 @@ autostart = true
 
 [connection signal="color_selected" from="HBoxContainer/LeftContainer/ColorsContainer" to="." method="_on_colors_container_color_selected"]
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/DrawingTexture" to="." method="_on_drawing_texture_gui_input"]
+[connection signal="width_changed" from="HBoxContainer/VBoxContainer/BottomContainer/WidthContainer" to="." method="_on_width_container_width_changed"]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/BottomContainer/OpacitySlider" to="." method="_on_opacity_slider_value_changed"]
 [connection signal="tool_changed" from="HBoxContainer/RightContainer/ToolsContainer" to="." method="_on_tools_container_tool_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

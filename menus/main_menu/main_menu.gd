@@ -8,6 +8,8 @@ const SERVER_BUTTON: PackedScene = preload("res://menus/main_menu/server_button.
 @onready var empty_label: Label = %EmptyLabel
 @onready var error_host_label: Label = %ErrorHostLabel
 
+var custom_servers: CustomServers = CustomServers.setup()
+
 func _ready() -> void:
 	randomize()
 	
@@ -22,6 +24,9 @@ func _ready() -> void:
 	Discovery.scan()
 	
 	multiplayer.connected_to_server.connect(_on_connected_ok)
+	
+	for custom_server in custom_servers.get_servers():
+		add_server(custom_server)
 
 
 func _on_host_button_pressed() -> void:
@@ -60,6 +65,11 @@ func _on_timer_timeout() -> void:
 
 func _on_server_scanned(server_id: String):
 	var server_data: RServerData = Discovery.get_server_data(server_id)
+	self.add_server(server_data)
+
+
+func add_server(server_data: RServerData):
+	var server_id = server_data.get_id()
 	var node_name = server_id.replace(".", "_").replace(":", "_")
 	
 	var server_btn = servers_container.get_node_or_null(node_name)
@@ -78,7 +88,8 @@ func _on_server_scanned(server_id: String):
 	server_btn.max_players = server_data.max_players
 
 
-func _on_server_timed_out(server_id: String, server_data: RServerData):
+func _on_server_timed_out(server_data: RServerData):
+	var server_id = server_data.get_id()
 	var node_name = server_id.replace(".", "_").replace(":", "_")
 	var node = servers_container.get_node_or_null(node_name)
 	if node:
@@ -88,10 +99,11 @@ func _on_server_timed_out(server_id: String, server_data: RServerData):
 	if servers_container.get_child_count() == 1: # the 1 is empty_label
 		empty_label.show()
 
+
 func join_server(server_id: String) -> void:
 	set_player_name()
 	var server_data = Discovery.get_server_data(server_id)
-	var server_ip = server_id.split(":")[0]
+	var server_ip = server_data.address
 	var server_port = server_data.port
 	var err = NetworkManager.join_server(server_ip, server_port)
 

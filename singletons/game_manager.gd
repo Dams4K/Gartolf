@@ -125,7 +125,7 @@ func get_our_drawing() -> Texture:
 	
 	var buffer: PackedByteArray = drawings[current_round-1][our_player_id]
 	
-	var image = Image.create(1920, 1080, true, Image.FORMAT_BPTC_RGBA)
+	var image = Image.create(1280, 720, true, Image.FORMAT_BPTC_RGBA)
 	image.load_png_from_buffer(buffer)
 	var tex := ImageTexture.create_from_image(image)
 	

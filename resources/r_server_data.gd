@@ -3,13 +3,15 @@ extends Resource
 
 enum STATUS {
 	OPEN,
-	PLAYING
+	PLAYING,
+	UNKOWN
 }
 
-@export var port: int
-@export var max_players: int
-@export var total_players: int
-@export var status: STATUS = STATUS.OPEN
+@export var address: String = "localhost"
+@export var port: int = 4242
+@export var max_players: int = -1
+@export var total_players: int = -1
+@export var status: STATUS = STATUS.UNKOWN
 
 func to_dict() -> Dictionary:
 	return {
@@ -25,3 +27,6 @@ func _init(data: Dictionary = {}) -> void:
 		max_players = data.get("max_players", 0)
 		total_players = data.get("total_players", 0)
 		status = data.get("status", STATUS.OPEN)
+
+func get_id() -> String:
+	return "%s:%s" % [self.address, self.port]

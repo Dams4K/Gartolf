@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwxawg4b3p0cv"]
+
+[ext_resource type="Script" path="res://menus/drawing/width_container.gd" id="1_twmy3"]
+
+[node name="WidthContainer" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_twmy3")
+default_value = null

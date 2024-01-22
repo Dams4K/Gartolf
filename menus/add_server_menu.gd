@@ -4,6 +4,7 @@ extends Control
 @onready var port_line_edit: LineEdit = %PortLineEdit
 @onready var error_label: Label = %ErrorLabel
 
+var custom_servers: CustomServers = CustomServers.setup()
 
 func _on_add_button_pressed() -> void:
 	var address: String = address_line_edit.text
@@ -14,6 +15,7 @@ func _on_add_button_pressed() -> void:
 		error_label.text = "Le port ne doit contenir que des chiffres"
 	else: # Everything is okay (i guess?)
 		# Add server
+		custom_servers.add_server(address, port.to_int())
 		
 		# Go back to the main menu
 		exit()
