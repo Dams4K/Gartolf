@@ -21,9 +21,9 @@ var current_opacity: float = 1.0
 
 func _ready() -> void:
 	GameManager.all_drawings_received.connect(_on_all_drawings_received)
-	
+	#print(SCREEN_SIZE)
 	drawing_space.current_color = current_color
-	drawing_viewport.size = SCREEN_SIZE
+	#drawing_viewport.size = SCREEN_SIZE
 	
 	sentence_label.text = GameManager.get_our_sentence()
 	
@@ -48,7 +48,9 @@ func save_drawing():
 
 func _on_drawing_texture_gui_input(event: InputEvent) -> void:
 #	event.position -= size/2 # If i have a camera
-	event.position *= SCREEN_SIZE/drawing_texture.size
+	printt(event.position, event.position*SCREEN_SIZE/drawing_texture.size, get_local_mouse_position())
+	#event.position = get_local_mouse_position()
+	event.position *= Vector2(drawing_viewport.size)/drawing_texture.size
 	drawing_viewport.push_input(event)
 
 
@@ -66,6 +68,7 @@ func end_drawing():
 
 
 func _on_timer_timeout() -> void:
+	print(multiplayer)
 	if multiplayer.is_server(): # It's the server who start
 		end_drawing.rpc()
 	

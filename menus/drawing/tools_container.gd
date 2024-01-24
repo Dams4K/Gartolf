@@ -10,7 +10,7 @@ func _ready() -> void:
 		btn.name = key
 		btn.custom_minimum_size = Vector2.ONE * 64
 		btn.pressed.connect(_on_change_tool_btn_pressed.bind(key))
-		btn.icon = load("res://assets/textures/buttons/tools/%s.png" % key.to_lower())
+		btn.icon = load("res://assets/textures/icons/%s.png" % key.to_lower())
 		add_child(btn)
 
 func _on_change_tool_btn_pressed(tool_name: String):

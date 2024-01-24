@@ -1,0 +1,8 @@
+ICONS
+-----
+
+gomme: <a href="https://www.flaticon.com/fr/icones-gratuites/la-gomme" title="la gomme icônes">La gomme icônes créées par Freepik - Flaticon</a>
+
+pinceau: <a href="" title="artiste icônes">Artiste icônes créées par Freepik - Flaticon</a>
+
+seau: <a href="https://www.flaticon.com/fr/icones-gratuites/seau-de-peinture" title="seau de peinture icônes">Seau de peinture icônes créées par Freepik - Flaticon</a>

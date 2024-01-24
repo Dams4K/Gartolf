@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3v000i7f3xbe"
-path="res://.godot/imported/brush.png-b445fa31051a9e6d47ac6076371c8743.ctex"
+uid="uid://4dkbignps20w"
+path="res://.godot/imported/filler.png-4c7862085f164d1212231768ad6939b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/buttons/tools/brush.png"
-dest_files=["res://.godot/imported/brush.png-b445fa31051a9e6d47ac6076371c8743.ctex"]
+source_file="res://assets/textures/icons/filler.png"
+dest_files=["res://.godot/imported/filler.png-4c7862085f164d1212231768ad6939b0.ctex"]
 
 [params]
 

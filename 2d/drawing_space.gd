@@ -1,10 +1,18 @@
 extends Node2D
 class_name DrawingSpace
 
+const neighboors: Array[Vector2i] = [
+	Vector2i.DOWN,
+	Vector2i.UP,
+	Vector2i.LEFT,
+	Vector2i.RIGHT,
+]
+
 enum TOOLS {
 	BRUSH,
 	ERASER,
 	LINE,
+	#FILLER,
 	RECTANGLE_EMPTY,
 	RECTANGLE_FILLED,
 	CIRCLE_EMPTY,
@@ -46,6 +54,8 @@ func _input(event: InputEvent) -> void:
 			handle_brush(event, color, width)
 		TOOLS.LINE:
 			handle_line(event, color, width)
+		#TOOLS.FILLER:
+			#handle_filler(event, color)
 		TOOLS.RECTANGLE_EMPTY:
 			handle_rectangle_empty(event, color, width)
 		TOOLS.RECTANGLE_FILLED:
@@ -207,3 +217,75 @@ func handle_line(event, color, width):
 	
 	elif event is InputEventMouseMotion and current_line:
 		current_line.set_point_position(1, event.position)
+
+
+func handle_filler(event, color):
+	if event is InputEventMouseButton:
+		if event.pressed:
+			var img = self.get_viewport().get_texture().get_image()
+			var new_img = Image.create(img.get_width(), img.get_height(), img.has_mipmaps(), Image.FORMAT_RGBA8)
+			
+			#var color_to_replace = img.get_pixelv(event.position)
+			#print(color_to_replace)
+			#fill(event.position, color_to_replace, img, new_img)
+
+func fill(p_position: Vector2i, color_to_replace: Color, img: Image, to_img: Image):
+	var queue = [p_position]
+	
+	var sprite_2d = Sprite2D.new()
+	sprite_2d.centered = false
+	sprite_2d.modulate = Color.RED
+	lines.add_child(sprite_2d)
+	
+	while not queue.is_empty():
+		var pixel = queue.pop_front()
+		
+		if pixel.x < 0 or pixel.x > img.get_width()-1:
+			continue
+		if pixel.y < 0 or pixel.y > img.get_height()-1:
+			continue
+		
+		var p_color = img.get_pixelv(pixel)
+		if p_color != color_to_replace:
+			continue
+		
+		var c = Color.WHITE
+		c.a = 0.2
+		to_img.set_pixelv(pixel, c)
+		img.set_pixelv(pixel, color_to_replace.inverted())
+	
+		for neighboor in [Vector2i.UP, Vector2i.RIGHT]:
+			var new_pixel = pixel + neighboor
+			if not new_pixel in queue:
+				queue.append(new_pixel)
+		
+		await get_tree().create_timer(0.0001).timeout
+		
+		var tex = ImageTexture.create_from_image(to_img)
+		sprite_2d.texture = tex
+	print_debug("Fill finish")
+	
+	
+			#
+			#var color_to_replace = img.get_pixelv(event.position)
+			#
+			#var pixels_to_check: Array[Vector2i] = [event.position]
+			#var pixels_checked: Array[Vector2i] = []
+			#
+			#while not pixels_to_check.is_empty():
+				#var pixel: Vector2i = pixels_to_check.pop_front()
+				#var pixel_color = img.get_pixelv(pixel)
+				#if pixel_color != color_to_replace:
+					#continue
+				#
+				#new_img.set_pixelv(pixel, color)
+				#
+				#for neighboor in neighboors:
+					#var neighboor_pixel = pixel + neighboor
+					#if neighboor_pixel in pixels_to_check or neighboor_pixel in pixels_checked:
+						#continue
+					#
+					#pixels_to_check.append(neighboor_pixel)
+				#
+				#pixels_checked.append(pixel)
+			#

@@ -54,12 +54,16 @@ func handle_packets():
 	if data.get("answer_for") == Discovery.Requests.GET_SERVER:
 		var new_server_data := RServerData.new(data.get("data", {}))
 		
-		if server_data.status != new_server_data.status:
-			new_status.emit(new_server_data.status)
-		if server_data.total_players != new_server_data.total_players:
-			total_player_changed.emit(new_server_data.total_players)
+		if new_server_data.port != server_data.port:
+			return
 		
+		var old_server_data = server_data
 		server_data = new_server_data
+		
+		if old_server_data.status != new_server_data.status:
+			new_status.emit(new_server_data.status)
+		if old_server_data.total_players != new_server_data.total_players:
+			total_player_changed.emit(new_server_data.total_players)
 
 
 func _on_timer_timeout():

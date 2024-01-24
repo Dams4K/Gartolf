@@ -32,6 +32,7 @@ func _on_new_status(status: RServerData.STATUS) -> void:
 
 func _on_total_player_changed(value: int):
 	total_players = value
+	max_players = server.server_data.max_players
 	update_players_label()
 
 func _process(delta: float) -> void:

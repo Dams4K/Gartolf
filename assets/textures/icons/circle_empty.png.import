@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdug4wo4rmrlm"
-path="res://.godot/imported/eraser.png-42aca2ad919e26dbd02026975bf6ee7b.ctex"
+uid="uid://cp2yfip68byv6"
+path="res://.godot/imported/circle_empty.png-e38f0d33c6f962f02ab04b0fd913a92f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/buttons/tools/eraser.png"
-dest_files=["res://.godot/imported/eraser.png-42aca2ad919e26dbd02026975bf6ee7b.ctex"]
+source_file="res://assets/textures/icons/circle_empty.png"
+dest_files=["res://.godot/imported/circle_empty.png-e38f0d33c6f962f02ab04b0fd913a92f.ctex"]
 
 [params]
 
