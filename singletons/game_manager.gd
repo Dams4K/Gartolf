@@ -127,7 +127,18 @@ func get_our_drawing() -> Texture:
 	if multiplayer.is_server():
 		printt("drawing: ", our_order_index, our_player_index, our_player_id)
 	
-	var buffer: PackedByteArray = drawings[current_round-1][our_player_id]
+	return get_drawing(current_round-1, our_player_id)
+	#var buffer: PackedByteArray = drawings[current_round-1][our_player_id]
+	#
+	#var image = Image.create(1280, 720, true, Image.FORMAT_BPTC_RGBA)
+	#image.load_png_from_buffer(buffer)
+	#var tex := ImageTexture.create_from_image(image)
+	#
+	#return tex
+
+func get_drawing(round: int, player_id: int) -> Texture:
+	print("drawings")
+	var buffer: PackedByteArray = drawings[round][player_id]
 	
 	var image = Image.create(1280, 720, true, Image.FORMAT_BPTC_RGBA)
 	image.load_png_from_buffer(buffer)
@@ -136,8 +147,9 @@ func get_our_drawing() -> Texture:
 	return tex
 
 func end():
-	if multiplayer.is_server():
-		load_end_screen.rpc()
+	load_end_screen()
+	#if multiplayer.is_server():
+		#load_end_screen.rpc()
 
 
 @rpc("authority", "call_local", "reliable")

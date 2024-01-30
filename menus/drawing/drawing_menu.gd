@@ -66,19 +66,17 @@ func end_drawing():
 
 func _on_timer_timeout() -> void:
 	if multiplayer.is_server(): # It's the server who start
-		#TODO: Find another way
-		printt(GameManager.current_round, len(GameManager.players) % 2)
-		if GameManager.current_round == len(GameManager.players) % 2:
-			GameManager.end()
-		else:
-			end_drawing.rpc()
+		end_drawing.rpc()
 	
 	#TODO: find a better way to keep the player from drawing
 	$HBoxContainer.hide()
 
 func _on_all_drawings_received():
-	GameManager.current_round += 1
-	get_tree().change_scene_to_file("res://menus/sentence_menu.tscn")
+	if GameManager.current_round == round(len(GameManager.players) / 2):
+		GameManager.end()
+	else:
+		GameManager.current_round += 1
+		get_tree().change_scene_to_file("res://menus/sentence_menu.tscn")
 
 
 func _on_opacity_slider_value_changed(value: float) -> void:

@@ -3,6 +3,7 @@ extends Panel
 @export var username: String = "Username": set = set_username
 @export var sentence: String = "blablabla": set = set_sentence
 
+@onready var v_box_container: VBoxContainer = $VBoxContainer
 
 @onready var username_label: Label = %UsernameLabel
 @onready var sentence_label: Label = %SentenceLabel
@@ -23,3 +24,7 @@ func set_sentence(value: String) -> void:
 	sentence = value
 	if sentence_label:
 		sentence_label.text = "  %s" % value
+
+
+func _process(delta: float) -> void:
+	custom_minimum_size.y = v_box_container.size.y

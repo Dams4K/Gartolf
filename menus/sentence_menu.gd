@@ -65,11 +65,7 @@ func start_drawing():
 
 
 func _on_timer_timeout() -> void:
-	printt(GameManager.current_round, len(GameManager.players) % 2)
 	if multiplayer.is_server(): # It's the server who start
-		#if GameManager.current_round == len(GameManager.players) % 2:
-			#GameManager.end()
-		#else:
 		start_drawing.rpc()
 	
 	#TODO: change scene to an afk scene
@@ -77,4 +73,9 @@ func _on_timer_timeout() -> void:
 
 func _on_all_sentences_received():
 	# We can change the scene
-	get_tree().change_scene_to_file("res://menus/drawing/drawing_menu.tscn")
+	if GameManager.current_round == round(len(GameManager.players) / 2):
+		#TODO: of course not like this, wtf i removing 1 lmao
+		GameManager.current_round -= 1 # Removing 1 because if it ends with a sentence, there will be not drawing at the round "GameManager.current_round"
+		GameManager.end()
+	else:
+		get_tree().change_scene_to_file("res://menus/drawing/drawing_menu.tscn")
