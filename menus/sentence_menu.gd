@@ -75,7 +75,7 @@ func _on_all_sentences_received():
 	# We can change the scene
 	if GameManager.current_round == round(len(GameManager.players) / 2):
 		#TODO: of course not like this, wtf i removing 1 lmao
-		GameManager.current_round -= 1 # Removing 1 because if it ends with a sentence, there will be not drawing at the round "GameManager.current_round"
+		#GameManager.current_round -= 1 # Removing 1 because if it ends with a sentence, there will be not drawing at the round "GameManager.current_round"
 		GameManager.end()
 	else:
 		get_tree().change_scene_to_file("res://menus/drawing/drawing_menu.tscn")

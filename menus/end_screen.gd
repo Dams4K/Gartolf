@@ -30,7 +30,8 @@ func display_player_round(player_id: int) -> void:
 	var order_position = GameManager.players_order.find(player_id)
 	for round in range(GameManager.current_round+1):
 		add_sentence_panel(order_position, round)
-		add_drawing_panel(order_position-1, round)
+		if round < len(GameManager.drawings):
+			add_drawing_panel(order_position-1, round)
 		order_position += 1
 
 
