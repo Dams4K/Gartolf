@@ -47,9 +47,6 @@ func save_drawing():
 
 
 func _on_drawing_texture_gui_input(event: InputEvent) -> void:
-#	event.position -= size/2 # If i have a camera
-	printt(event.position, event.position*SCREEN_SIZE/drawing_texture.size, get_local_mouse_position())
-	#event.position = get_local_mouse_position()
 	event.position *= Vector2(drawing_viewport.size)/drawing_texture.size
 	drawing_viewport.push_input(event)
 
@@ -68,9 +65,13 @@ func end_drawing():
 
 
 func _on_timer_timeout() -> void:
-	print(multiplayer)
 	if multiplayer.is_server(): # It's the server who start
-		end_drawing.rpc()
+		#TODO: Find another way
+		printt(GameManager.current_round, len(GameManager.players) % 2)
+		if GameManager.current_round == len(GameManager.players) % 2:
+			GameManager.end()
+		else:
+			end_drawing.rpc()
 	
 	#TODO: find a better way to keep the player from drawing
 	$HBoxContainer.hide()

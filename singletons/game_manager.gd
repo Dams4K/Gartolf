@@ -108,6 +108,8 @@ func get_our_sentence():
 	
 	var our_player_index = (our_order_index + 1) % len(players)
 	var our_player_id = players_order[our_player_index]
+	if multiplayer.is_server():
+		printt("sentence: ", our_order_index, our_player_index, our_player_id)
 	
 	return sentences[current_round][our_player_id]
 
@@ -122,6 +124,8 @@ func get_our_drawing() -> Texture:
 	
 	var our_player_index = (our_order_index + 1) % (len(players)) #TODO: may change this?
 	var our_player_id = players_order[our_player_index]
+	if multiplayer.is_server():
+		printt("drawing: ", our_order_index, our_player_index, our_player_id)
 	
 	var buffer: PackedByteArray = drawings[current_round-1][our_player_id]
 	
@@ -130,3 +134,12 @@ func get_our_drawing() -> Texture:
 	var tex := ImageTexture.create_from_image(image)
 	
 	return tex
+
+func end():
+	if multiplayer.is_server():
+		load_end_screen.rpc()
+
+
+@rpc("authority", "call_local", "reliable")
+func load_end_screen():
+	get_tree().change_scene_to_file("res://menus/end_screen.tscn")

@@ -10,25 +10,8 @@ var DEFAULT_SENTENCES = [
 	"Glados (portal) qui est caissière chez Ledli",
 	"Un MP2I qui essaye de parler à une fille (stress 100%)",
 	"Un MP2I qui fait un date (avec son ordinateur)",
-	"Un MP2I qui fait un date (avec son ordinateur)1",
-	"Un MP2I qui fait un date (avec son ordinateur)2",
-	"Un MP2I qui fait un date (avec son ordinateur)3",
-	"Un MP2I qui fait un date (avec son ordinateur)3",
-	"Un MP2I qui fait un date (avec son ordinateur)4",
-	"Un MP2I qui fait un date (avec son ordinateur)5",
-	"Un MP2I qui fait un date (avec son ordinateur)6",
-	"Un MP2I qui fait un date (avec son ordinateur)7",
-	"Un MP2I qui fait un date (avec son ordinateur)8",
-	"Un MP2I qui fait un date (avec son ordinateur)9",
-	"Un MP2I qui fait un date (avec son ordinateur)10",
-	"Un MP2I qui fait un date (avec son ordinateur)11",
-	"Un MP2I qui fait un date (avec son ordinateur)12",
-	"Un MP2I qui fait un date (avec son ordinateur)13",
-	"Un MP2I qui fait un date (avec son ordinateur)14",
-	"Un MP2I qui fait un date (avec son ordinateur)15",
-	"Un MP2I qui fait un date (avec son ordinateur)16",
-	"Un MP2I qui fait un date (avec son ordinateur)17",
-	"Un MP2I qui fait un date (avec son ordinateur)18",
+	"Il est où Killiane",
+	"Léon qui applaudit",
 ]
 
 @onready var sentence_line_edit: LineEdit = %SentenceLineEdit
@@ -82,7 +65,11 @@ func start_drawing():
 
 
 func _on_timer_timeout() -> void:
+	printt(GameManager.current_round, len(GameManager.players) % 2)
 	if multiplayer.is_server(): # It's the server who start
+		#if GameManager.current_round == len(GameManager.players) % 2:
+			#GameManager.end()
+		#else:
 		start_drawing.rpc()
 	
 	#TODO: change scene to an afk scene

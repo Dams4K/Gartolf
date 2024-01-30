@@ -13,7 +13,9 @@ config_version=5
 config/name="Gartolf"
 run/main_scene="res://menus/main_menu/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
-config/icon="res://icon.svg"
+boot_splash/image="res://assets/textures/backgrounds/spash_screen.png"
+config/icon="res://assets/textures/icons/logo.png"
+config/windows_native_icon="res://assets/textures/icons/logo.ico"
 discovery/port=4040
 
 [autoload]
@@ -26,8 +28,8 @@ GameManager="*res://singletons/game_manager.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/window_width_override=960
-window/size/window_height_override=540
+window/size/window_width_override=480
+window/size/window_height_override=270
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
