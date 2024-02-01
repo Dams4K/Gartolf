@@ -157,13 +157,41 @@ func load_end_screen():
 	get_tree().change_scene_to_file("res://menus/end_screen.tscn")
 
 
+func get_total_sequence(start: int) -> Array:
+	var sentences_sequence = get_sentences_sequence(start)
+	var drawings_sequence = get_drawings_sequence(start)
+	
+	var sequence: Array = []
+	for i in range(max(len(sentences_sequence), len(drawings_sequence))):
+		if i < len(sentences_sequence):
+			sequence.append(sentences_sequence[i])
+		if i < len(drawings_sequence):
+			sequence.append(drawings_sequence[i])
+	
+	return sequence
 
-func get_drawings_sequence(start: int):
+
+func get_sentences_sequence(start: int) -> Array[String]:
 	var current_position = start
-	var drawings_sequence: Array[Texture] = []
+	var sequence: Array[String] = []
+	
+	for round in range(current_round+1):
+		var player_id: int = players_order[(current_position+round)%len(players)]
+		var sentence: String = sentences[round][player_id]
+		sequence.append(sentence)
+		current_position += 1
+			
+	return sequence
+
+func get_drawings_sequence(start: int) -> Array[Texture]:
+	var current_position = start
+	var sequence: Array[Texture] = []
 	
 	for round in range(current_round+1):
 		if round < len(drawings):
-			var player_id = players_order[(current_position+round)%len(players)]
+			var player_id = players_order[(current_position+round-1)%len(players)]
 			var drawing := get_drawing(round, player_id)
-			drawings_sequence.append(drawing)
+			sequence.append(drawing)
+			current_position += 1
+	
+	return sequence
