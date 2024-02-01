@@ -12,6 +12,13 @@ var DEFAULT_SENTENCES = [
 	"Un MP2I qui fait un date (avec son ordinateur)",
 	"Il est où Killiane",
 	"Léon qui applaudit",
+	"Killiane qui se prend un blâme",
+	"Qqun qui pisse sur la vie scolaire",
+	"Lucas sur son terrain de chasse",
+	"Jules sur le trône en train de jouer à geometry dash",
+	"Clément sur brawlhalla à minuit",
+	"Ethan chez Damien",
+	"Jerzy à la fac",
 ]
 
 @onready var sentence_line_edit: LineEdit = %SentenceLineEdit

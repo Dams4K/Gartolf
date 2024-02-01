@@ -155,3 +155,15 @@ func end():
 @rpc("authority", "call_local", "reliable")
 func load_end_screen():
 	get_tree().change_scene_to_file("res://menus/end_screen.tscn")
+
+
+
+func get_drawings_sequence(start: int):
+	var current_position = start
+	var drawings_sequence: Array[Texture] = []
+	
+	for round in range(current_round+1):
+		if round < len(drawings):
+			var player_id = players_order[(current_position+round)%len(players)]
+			var drawing := get_drawing(round, player_id)
+			drawings_sequence.append(drawing)

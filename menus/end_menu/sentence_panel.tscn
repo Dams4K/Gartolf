@@ -28,3 +28,7 @@ layout_mode = 2
 theme_type_variation = &"LabelTitleSmall"
 text = "  blablablablablablablablablablablablablablablablablablablablabla"
 autowrap_mode = 3
+
+[node name="ShowTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="ShowTimer" to="." method="_on_show_timer_timeout"]
