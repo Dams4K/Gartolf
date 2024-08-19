@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://st0jr6njwmvw"]
+[gd_scene load_steps=4 format=3 uid="uid://st0jr6njwmvw"]
 
 [ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_lagxa"]
-[ext_resource type="Texture2D" uid="uid://dvcam5kdx6omk" path="res://assets/textures/backgrounds/background.png" id="1_x48fk"]
 [ext_resource type="Script" path="res://menus/sentence_menu.gd" id="2_pam4j"]
 
 [sub_resource type="GDScript" id="GDScript_01vid"]
@@ -17,16 +16,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_lagxa")
 script = ExtResource("2_pam4j")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_x48fk")
-stretch_mode = 6
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -80,8 +69,8 @@ toggle_mode = true
 text = "Terminé"
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true
-autostart = true
 
 [connection signal="toggled" from="CenterContainer/VBoxContainer/HBoxContainer/FinishButton" to="." method="_on_finish_button_toggled"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

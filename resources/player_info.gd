@@ -46,7 +46,6 @@ var PSEUDOS: Array[StringName] = [
 	"Rocketman"
 ]
 
-var set_save_player_name = set_player_name.bind(true)
 @export var name: String = ""
 var placeholder_name: String
 
@@ -63,11 +62,6 @@ static func setup() -> PlayerInfo:
 	if ResourceLoader.exists(PATH):
 		return ResourceLoader.load(PATH)
 	return PlayerInfo.new()
-
-
-func set_player_name(save: bool, value: String) -> void:
-	name = value
-	save()
 
 
 func get_player_name() -> String:

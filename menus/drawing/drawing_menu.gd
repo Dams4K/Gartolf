@@ -14,20 +14,25 @@ var SCREEN_SIZE = Vector2(
 @onready var timer_label_text: String = timer_label.text
 @onready var timer: Timer = $Timer
 @onready var width_container: HBoxContainer = %WidthContainer
+@onready var finish_button: Button = %FinishButton
 
 var current_color: Color = Color.BLACK
 var current_tool: int = DrawingSpace.TOOLS.BRUSH
 var current_opacity: float = 1.0
 
+var players_ready: Array[int] = []
+
 func _ready() -> void:
+	timer.wait_time = ProjectSettings.get("game/settings/drawing_time")
+	timer.start()
+	
 	GameManager.all_drawings_received.connect(_on_all_drawings_received)
-	#print(SCREEN_SIZE)
 	drawing_space.current_color = current_color
-	#drawing_viewport.size = SCREEN_SIZE
 	
 	sentence_label.text = GameManager.get_our_sentence()
 	
 	_on_width_container_width_changed(width_container.default_value)
+	_on_finish_button_toggled(false)
 
 func _on_colors_container_color_selected(color) -> void:
 	current_color = color
@@ -86,3 +91,21 @@ func _on_opacity_slider_value_changed(value: float) -> void:
 
 func _on_width_container_width_changed(value: float) -> void:
 	drawing_space.width = value
+
+
+func _on_finish_button_toggled(toggled_on: bool) -> void:
+	finish_button.text = "Terminé" if !toggled_on else "Modifier"
+	
+	toggle_ready.rpc(toggled_on)
+
+@rpc("any_peer", "call_local", "reliable")
+func toggle_ready(is_ready: bool):
+	var id = multiplayer.get_remote_sender_id()
+	
+	if not is_ready and id in players_ready:
+		players_ready.erase(id)
+	elif is_ready:
+		players_ready.append(id)
+	
+	if multiplayer.is_server() and len(players_ready) == len(GameManager.players):
+		end_drawing.rpc()

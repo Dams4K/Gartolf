@@ -15,8 +15,8 @@ var client: PacketPeerUDP
 
 @onready var timer: Timer
 
-func _init(ip: String):
-	self.ip = ip
+func _init(_ip: String):
+	self.ip = _ip
 
 
 func _ready() -> void:

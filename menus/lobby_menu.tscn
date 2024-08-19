@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvfup3t3ulxya"]
+[gd_scene load_steps=3 format=3 uid="uid://bvfup3t3ulxya"]
 
 [ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_as1kk"]
-[ext_resource type="Texture2D" uid="uid://dvcam5kdx6omk" path="res://assets/textures/backgrounds/background.png" id="2_8a0p6"]
 [ext_resource type="Script" path="res://menus/lobby_menu.gd" id="2_jxo1m"]
 
 [node name="LobbyMenu" type="Control"]
@@ -13,16 +12,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_as1kk")
 script = ExtResource("2_jxo1m")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_8a0p6")
-stretch_mode = 6
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

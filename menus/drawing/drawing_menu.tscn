@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvewywda15qf2"]
+[gd_scene load_steps=11 format=3 uid="uid://cvewywda15qf2"]
 
 [ext_resource type="Script" path="res://menus/drawing/drawing_menu.gd" id="1_lj3hq"]
 [ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_tld3x"]
-[ext_resource type="Texture2D" uid="uid://dvcam5kdx6omk" path="res://assets/textures/backgrounds/background.png" id="3_732oq"]
 [ext_resource type="PackedScene" uid="uid://c36lam14li5p5" path="res://2d/drawing_space.tscn" id="4_mniss"]
 [ext_resource type="Texture2D" uid="uid://2g3qpd2pruh0" path="res://assets/textures/logo.png" id="5_ex55n"]
 [ext_resource type="PackedScene" uid="uid://dpu7uc2fbmia2" path="res://menus/drawing/colors_container.tscn" id="5_nufaf"]
@@ -37,16 +36,6 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_tld3x")
 script = ExtResource("1_lj3hq")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_732oq")
-stretch_mode = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -154,8 +143,10 @@ max_value = 1.0
 step = 0.2
 value = 1.0
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/BottomContainer"]
+[node name="FinishButton" type="Button" parent="HBoxContainer/VBoxContainer/BottomContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+toggle_mode = true
 text = "Terminer"
 
 [node name="RightContainer" type="HBoxContainer" parent="HBoxContainer"]
@@ -168,11 +159,11 @@ layout_mode = 2
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
-autostart = true
 
 [connection signal="color_selected" from="HBoxContainer/LeftContainer/ColorsContainer" to="." method="_on_colors_container_color_selected"]
 [connection signal="gui_input" from="HBoxContainer/VBoxContainer/DrawingTexture" to="." method="_on_drawing_texture_gui_input"]
 [connection signal="width_changed" from="HBoxContainer/VBoxContainer/BottomContainer/WidthContainer" to="." method="_on_width_container_width_changed"]
 [connection signal="value_changed" from="HBoxContainer/VBoxContainer/BottomContainer/OpacitySlider" to="." method="_on_opacity_slider_value_changed"]
+[connection signal="toggled" from="HBoxContainer/VBoxContainer/BottomContainer/FinishButton" to="." method="_on_finish_button_toggled"]
 [connection signal="tool_changed" from="HBoxContainer/RightContainer/ToolsContainer" to="." method="_on_tools_container_tool_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdaep5s5s3dkr"]
+[gd_scene load_steps=3 format=3 uid="uid://cdaep5s5s3dkr"]
 
 [ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_gixqc"]
-[ext_resource type="Texture2D" uid="uid://dvcam5kdx6omk" path="res://assets/textures/backgrounds/background.png" id="1_iarv4"]
 [ext_resource type="Script" path="res://menus/end_screen.gd" id="2_bdy2n"]
 
 [node name="EndScreen" type="Control"]
@@ -14,16 +13,6 @@ grow_vertical = 2
 theme = ExtResource("1_gixqc")
 script = ExtResource("2_bdy2n")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_iarv4")
-stretch_mode = 6
-
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -32,17 +21,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 768)
 layout_mode = 2
 
-[node name="PlayerList" type="Panel" parent="CenterContainer/HBoxContainer"]
+[node name="PlayerList" type="Panel" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PlayerListContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/PlayerList"]
-unique_name_in_owner = true
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer/PlayerList"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,24 +42,52 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RoundHistory" type="Panel" parent="CenterContainer/HBoxContainer"]
+[node name="PlayerListContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer/PlayerList/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NextButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer/PlayerList/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+text = "Next player"
+
+[node name="RoundHistory" type="Panel" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(640, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/HBoxContainer/RoundHistory"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer/RoundHistory"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/VBoxContainer/HBoxContainer/RoundHistory/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="RoundHistoryContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer/RoundHistory/ScrollContainer"]
+[node name="RoundHistoryContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer/RoundHistory/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="DownloadGifButton" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer/RoundHistory/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Download gif"
+
+[node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "New game"
+
 [node name="Timer" type="Timer" parent="."]
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/PlayerList/VBoxContainer/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/RoundHistory/VBoxContainer/DownloadGifButton" to="." method="_on_download_gif_button_pressed"]

@@ -19,6 +19,7 @@ var DEFAULT_SENTENCES = [
 	"Clément sur brawlhalla à minuit",
 	"Ethan chez Damien",
 	"Jerzy à la fac",
+	"Titouan qui détruit les chiottes du bahut (encore)",
 ]
 
 @onready var sentence_line_edit: LineEdit = %SentenceLineEdit
@@ -32,6 +33,10 @@ var players_ready: Array[int] = []
 
 
 func _ready() -> void:
+	print(ProjectSettings.get("game/settings/sentence_time"))
+	timer.wait_time = ProjectSettings.get("game/settings/sentence_time")
+	timer.start()
+	
 	randomize()
 	DEFAULT_SENTENCES.shuffle()
 	sentence_line_edit.placeholder_text = DEFAULT_SENTENCES[0]
@@ -48,16 +53,15 @@ func _on_finish_button_toggled(button_pressed: bool) -> void:
 	sentence_line_edit.editable = !button_pressed
 	finish_button.text = "Terminé" if !button_pressed else "Modifier"
 	
-	if button_pressed:
-		set_ready.rpc()
+	toggle_ready.rpc(button_pressed)
 
 @rpc("any_peer", "call_local", "reliable")
-func set_ready():
+func toggle_ready(is_ready: bool):
 	var id = multiplayer.get_remote_sender_id()
 	
-	if id in players_ready:
+	if not is_ready and id in players_ready:
 		players_ready.erase(id)
-	else:
+	elif is_ready:
 		players_ready.append(id)
 	
 	if multiplayer.is_server() and len(players_ready) == len(GameManager.players):

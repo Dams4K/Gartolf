@@ -48,7 +48,7 @@ func _on_custom_server_added(index: int):
 	server_scanned.emit(server.get_id())
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	handle_client()
 	handle_server()
 

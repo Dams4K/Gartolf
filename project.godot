@@ -23,6 +23,7 @@ discovery/port=4040
 NetworkManager="*res://singletons/network_manager.gd"
 Discovery="*res://singletons/discovery/discovery.gd"
 GameManager="*res://singletons/game_manager.gd"
+Background="*res://menus/background.tscn"
 
 [display]
 
@@ -37,6 +38,11 @@ window/stretch/aspect="expand"
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[game]
+
+settings/sentence_time=30.0
+settings/drawing_time=120.0
 
 [physics]
 
