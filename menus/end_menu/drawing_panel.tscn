@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cthrecnsevm8"]
 
 [ext_resource type="Texture2D" uid="uid://c4yq84u64ly50" path="res://drawing.png" id="1_esd0m"]
-[ext_resource type="Script" path="res://menus/end_menu/drawing_panel.gd" id="1_qh7bt"]
+[ext_resource type="Script" uid="uid://crbpal5a87fix" path="res://menus/end_menu/drawing_panel.gd" id="1_qh7bt"]
 
 [node name="DrawingPanel" type="Panel"]
 custom_minimum_size = Vector2(384, 272)

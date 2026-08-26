@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://qgpg47plm1ea"]
 
 [ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_a71kc"]
-[ext_resource type="Script" path="res://menus/main_menu/server_button.gd" id="2_24uh8"]
+[ext_resource type="Script" uid="uid://v3yisnvvww08" path="res://menus/main_menu/server_button.gd" id="2_24uh8"]
 
 [node name="ServerButton" type="Button"]
 custom_minimum_size = Vector2(0, 64)

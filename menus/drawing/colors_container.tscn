@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dpu7uc2fbmia2"]
 
-[ext_resource type="Script" path="res://menus/drawing/colors_container.gd" id="1_bg7oa"]
+[ext_resource type="Script" uid="uid://cbyfvamtpi3tm" path="res://menus/drawing/colors_container.gd" id="1_bg7oa"]
 [ext_resource type="PackedScene" uid="uid://dw1e0xw8ekqd8" path="res://menus/drawing/color_button.tscn" id="2_werbd"]
 [ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="3_aajnb"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://bv4nw7rcqf4gq"]
 
 [ext_resource type="Texture2D" uid="uid://cer8pfx07xjae" path="res://assets/textures/backgrounds/spash_screen/background.PNG" id="1_8dcoc"]
-[ext_resource type="Script" path="res://menus/background.gd" id="1_82am1"]
+[ext_resource type="Script" uid="uid://bv07ikp7wln0t" path="res://menus/background.gd" id="1_82am1"]
 [ext_resource type="Texture2D" uid="uid://bgi77xvk7hvag" path="res://assets/textures/backgrounds/spash_screen/orange_grandient.PNG" id="2_7d55p"]
 [ext_resource type="Texture2D" uid="uid://bhqjvfwn841il" path="res://assets/textures/backgrounds/spash_screen/pink_gradient.PNG" id="3_6apoh"]
 [ext_resource type="Texture2D" uid="uid://b5w7qqw7ey4vn" path="res://assets/textures/backgrounds/spash_screen/purple_gradient.PNG" id="4_f41gi"]
@@ -65,8 +65,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u3wm5"]
 _data = {
-"RESET": SubResource("Animation_0twgw"),
-"SlowBlink": SubResource("Animation_v3ie4")
+&"RESET": SubResource("Animation_0twgw"),
+&"SlowBlink": SubResource("Animation_v3ie4")
 }
 
 [sub_resource type="Animation" id="Animation_g6f0b"]
@@ -103,8 +103,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5covp"]
 _data = {
-"RESET": SubResource("Animation_g6f0b"),
-"SlowBlink": SubResource("Animation_81nas")
+&"RESET": SubResource("Animation_g6f0b"),
+&"SlowBlink": SubResource("Animation_81nas")
 }
 
 [sub_resource type="Animation" id="Animation_tdvyf"]
@@ -165,8 +165,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qtv76"]
 _data = {
-"RESET": SubResource("Animation_tdvyf"),
-"SlowBlink": SubResource("Animation_pvhow")
+&"RESET": SubResource("Animation_tdvyf"),
+&"SlowBlink": SubResource("Animation_pvhow")
 }
 
 [node name="Background" type="Control"]
@@ -251,15 +251,15 @@ flip_v = true
 [node name="OrangePlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../PurplePlayer")
 libraries = {
-"": SubResource("AnimationLibrary_u3wm5")
+&"": SubResource("AnimationLibrary_u3wm5")
 }
 
 [node name="PurplePlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_5covp")
+&"": SubResource("AnimationLibrary_5covp")
 }
 
 [node name="DotPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_qtv76")
+&"": SubResource("AnimationLibrary_qtv76")
 }

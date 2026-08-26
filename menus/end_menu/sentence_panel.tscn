@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bcda60n57vpba"]
 
-[ext_resource type="Script" path="res://menus/end_menu/sentence_panel.gd" id="1_m7ar2"]
+[ext_resource type="Script" uid="uid://xqm448k1875x" path="res://menus/end_menu/sentence_panel.gd" id="1_m7ar2"]
 
 [node name="SentencePanel" type="Panel"]
 custom_minimum_size = Vector2(384, 92)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dw1e0xw8ekqd8"]
 
-[ext_resource type="Script" path="res://menus/drawing/color_button.gd" id="1_r4vo8"]
+[ext_resource type="Script" uid="uid://3ffkfer74i3s" path="res://menus/drawing/color_button.gd" id="1_r4vo8"]
 
 [node name="ColorButton" type="TextureButton"]
 anchors_preset = 15

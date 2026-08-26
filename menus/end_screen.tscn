@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cdaep5s5s3dkr"]
 
 [ext_resource type="Theme" uid="uid://ccjhg66qfqvmh" path="res://assets/themes/menu_theme.tres" id="1_gixqc"]
-[ext_resource type="Script" path="res://menus/end_screen.gd" id="2_bdy2n"]
+[ext_resource type="Script" uid="uid://bvd4olqreayh5" path="res://menus/end_screen.gd" id="2_bdy2n"]
 
 [node name="EndScreen" type="Control"]
 layout_mode = 3
